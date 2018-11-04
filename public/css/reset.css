@@ -1,0 +1,8 @@
+/***********************************
+* Archivo global de reset, 
+* para poner a 0 todos los estilos 
+************************************/
+
+body {
+  font-size: 16px;
+}

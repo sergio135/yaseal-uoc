@@ -1,0 +1,10 @@
+{
+  "name": "uoc/all-your-news",
+  "description": "Sitio web para mostrar tus RSS favoritos",
+  "type": "proyect",
+  "license": "MIT",
+  "require": {
+    "slim/slim": "^3.0",
+    "slim/php-view": "^2.2"
+  }
+}

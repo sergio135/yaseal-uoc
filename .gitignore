@@ -1,0 +1,8 @@
+###############################################################
+# Lista de archivos y directorios que seran ignorados por git #
+###############################################################
+
+# Directorios
+/vendor/
+
+# Archivos
