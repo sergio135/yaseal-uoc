@@ -1,8 +1,8 @@
 -- Crear esquema de la base de datos
-CREATE SCHEMA IF NOT EXISTS p7_news_app;
+CREATE SCHEMA IF NOT EXISTS app_cms;
 
 -- Seleccionar base de datos para su uso
-USE p7_news_app;
+USE app_cms;
 
 -- Crear tablas de la base de datos
 CREATE TABLE IF NOT EXISTS table_category (
@@ -58,6 +58,8 @@ CREATE TABLE IF NOT EXISTS table_news (
 	editor INT,
 	category_id INT NOT NULL,
 	CONSTRAINT pk_news PRIMARY KEY (id),
+	CONSTRAINT fk_news_autor FOREIGN KEY (autor) REFERENCES table_user(id),
+	CONSTRAINT fk_news_editor FOREIGN KEY (editor) REFERENCES table_user(id),
 	CONSTRAINT fk_news_category FOREIGN KEY (category_id) REFERENCES table_category(id)
 ) ENGINE=InnoDB;
 
