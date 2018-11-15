@@ -1,0 +1,34 @@
+<!------------------------------------------------------------------------
+-- Plantilla HTML para la página de portada del panel de administración --
+------------------------------------------------------------------------->
+<?php /* incluimos la plantilla goblal */ include __DIR__ . '/../layout.phtml' ?>
+<?php /* incluimos la cabecera */ include __DIR__ . '/../header.phtml' ?>
+
+<h1>Admin Panel Login</h1>
+
+<form action="/yaseal-local/admin_panel/login" method="post">
+    <input type="text" name="email" <?php if (isset($email)) echo "value=$email"?>>
+    <input type="password" name="password">
+    <button type="submit">Entrar</button>
+</form>
+
+<form action="/yaseal-local/admin_panel/register" method="post">
+    <input type="text" name="name" placeholder="Nombre y Apellidos" <?php if (isset($name)) echo "value=$name"?>>
+    <input type="text" name="email" placeholder="Email" <?php if (isset($email)) echo "value=$email"?>>
+    <input type="password" name="password" placeholder="Contraseña">
+    <select name="role">
+        <option value="1" <?php if (isset($role) && $role == 1) echo "selected"?>>Admin</option>
+        <option value="2" <?php if (isset($role) && $role == 2) echo "selected"?>>Editor</option>
+        <option value="3" <?php if (isset($role) && $role == 3) echo "selected"?>>Autor</option>
+    </select>
+    <button type="submit">Entrar</button>
+</form>
+
+<?php
+    if (isset($error)) {
+        echo "<div>$error</div>";
+    }
+?>
+<div></div>
+
+<?php /* incluimos el footer */ include __DIR__ . '/../footer.phtml' ?>

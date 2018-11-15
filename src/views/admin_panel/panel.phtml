@@ -1,0 +1,11 @@
+<!------------------------------------------------------------------------
+-- Plantilla HTML para la página de portada del panel de administración --
+------------------------------------------------------------------------->
+<?php /* incluimos la plantilla goblal */ include __DIR__ . '/../layout.phtml' ?>
+<?php /* incluimos la cabecera */ include __DIR__ . '/../header.phtml' ?>
+
+<h1>Admin Panel</h1>
+
+<div>Nombre: <?php echo $user->getName() ?></div>
+
+<?php /* incluimos el footer */ include __DIR__ . '/../footer.phtml' ?>
