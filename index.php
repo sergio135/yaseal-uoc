@@ -5,8 +5,6 @@
 
 require './vendor/autoload.php';
 
-session_start();
-
 $config['displayErrorDetails'] = true;
 $config['addContentLengthHeader'] = false;
 
@@ -33,15 +31,19 @@ $container['db'] = function ($c) {
     return $pdo;
 };
 
-$container['renderer'] = function ($c) {
-    return new Slim\Views\PhpRenderer(__DIR__ . '/src/views');
-};
-
 // Importamos el resto de codigo de nuestra aplicacion 
 // categorizado por funcionalidad.
 require './src/routes/index.php';
 require './src/api/index.php';
+require __DIR__ . './src/db/Classes/Models/News.php';
+require __DIR__ . './src/db/Classes/Models/User.php';
+require __DIR__ . './src/db/Classes/Controllers/AdminPanelController.php';
+require __DIR__ . './src/db/Classes/Controllers/NewsController.php';
+require __DIR__ . './src/db/Classes/Controllers/UserController.php';
+require __DIR__ . './src/db/Classes/Dao/UserDao.php';
+require __DIR__ . './src/db/Classes/Dao/NewsDao.php';
 
+session_start();
 // Se lanza toda la aplicacion.
 $app->run();
 ?>

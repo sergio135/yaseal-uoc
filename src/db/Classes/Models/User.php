@@ -58,43 +58,7 @@ class User {
         $this->role = $role;
     }
 
-    public static function login($pdo, $email, $pass) {
-        try {
-            $stmt = $pdo->prepare("SELECT u.id, u.name, u.email, u.password, u.date_registered, r.name as role
-                               FROM table_user u, table_role r
-                               WHERE u.role_id = r.id
-                               AND u.email = :email");
-            $stmt->execute(['email' => $email]);
-            $user = self::withRow($stmt->fetch());
-
-            if (!password_verify($pass, $user->getPassword())) {
-                throw new \Exception('Usuario o contraseña incorrecto');
-            }
-            return $user;
-        } catch (\Exception $e) {
-            switch ($e->getCode()) {
-                case '42S22':
-                    return 'Usuario no existe';
-                default:
-                    return $e->getMessage();
-            }
-        }
-    }
-
-    public static function insertNewUser($pdo, $name, $email, $pass, $role) {
-        $stmt = $pdo->prepare("INSERT INTO table_user (name, email, password, date_registered, role_id)
-                               VALUES (:name, :email, :password, CURRENT_DATE, :role)");
-        $result = $stmt->execute(['name' => $name, 'email' => $email, 'password' => password_hash($pass, PASSWORD_DEFAULT), 'role' => $role]);
-        return $result;
-    }
-
-    public static function withRow( array $row ) {
-        $instance = new self();
-        $instance->fill($row);
-        return $instance;
-    }
-
-    protected function fill( array $row ) {
+    public function fill(array $row) {
         $this->id = $row['id'];
         $this->name = $row['name'];
         $this->email = $row['email'];

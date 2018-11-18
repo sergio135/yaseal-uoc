@@ -25,10 +25,9 @@
 </form>
 
 <?php
-    if (isset($error)) {
-        echo "<div>$error</div>";
+    if (isset($notification)) {
+        echo "<div>{$notification['msg']}</div>";
     }
 ?>
-<div></div>
 
 <?php /* incluimos el footer */ include __DIR__ . '/../footer.phtml' ?>

@@ -1,5 +1,6 @@
 <?php
 namespace Classes\Models;
+use Classes\Dao\UserDao;
 
 class News {
     private $id;
@@ -14,14 +15,6 @@ class News {
     private $editor;
     private $category;
     private $keywords;
-
-    /**
-     * News constructor.
-     * @param $id
-     */
-    public function __construct($id) {
-        $this->id = $id;
-    }
 
     public function getId() {
         return $this->id;
@@ -119,7 +112,20 @@ class News {
         $this->keywords = $keywords;
     }
 
-
+    public function fill($db, array $row) {
+        $this->id = $row['id'];
+        $this->title = $row['title'];
+        $this->subtitle = $row['subtitle'];
+        $this->date_created = $row['date_created'];
+        $this->date_modified = $row['date_modified'];
+        $this->date_published = $row['date_published'];
+        $this->content = $row['content'];
+        $this->img = $row['img'];
+        $this->keywords = $row['keywords'];
+        $this->autor = UserDao::getbyId($db, $row['autor']);
+        $this->editor = UserDao::getbyId($db, $row['editor']);
+        $this->category = $row['category_id'];
+    }
 }
 
 ?>

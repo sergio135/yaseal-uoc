@@ -58,7 +58,9 @@ CREATE TABLE IF NOT EXISTS table_news (
 	editor INT,
 	category_id INT NOT NULL,
 	CONSTRAINT pk_news PRIMARY KEY (id),
-	CONSTRAINT fk_news_category FOREIGN KEY (category_id) REFERENCES table_category(id)
+	CONSTRAINT fk_news_category FOREIGN KEY (category_id) REFERENCES table_category(id),
+	CONSTRAINT fk_news_autor FOREIGN KEY (autor) REFERENCES table_user(id),
+	CONSTRAINT fk_news_editor FOREIGN KEY (editor) REFERENCES table_user(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS table_keyword (
@@ -73,3 +75,7 @@ INSERT INTO table_role (id, name, description) VALUES
 (1, 'admin', 'Administrador'),
 (2, 'editor', 'Editor'),
 (3, 'autor', 'Autor');
+
+INSERT INTO table_category (id, name, parent) VALUES
+(1, 'Categoría 1', NULL),
+(2, 'Categoría 2', NULL);
