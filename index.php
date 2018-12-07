@@ -35,13 +35,13 @@ $container['db'] = function ($c) {
 // categorizado por funcionalidad.
 require './src/routes/index.php';
 require './src/api/index.php';
-require __DIR__ . './src/db/Classes/Models/News.php';
-require __DIR__ . './src/db/Classes/Models/User.php';
-require __DIR__ . './src/db/Classes/Controllers/AdminPanelController.php';
-require __DIR__ . './src/db/Classes/Controllers/NewsController.php';
-require __DIR__ . './src/db/Classes/Controllers/UserController.php';
-require __DIR__ . './src/db/Classes/Dao/UserDao.php';
-require __DIR__ . './src/db/Classes/Dao/NewsDao.php';
+require __DIR__ . '/src/db/Classes/Models/News.php';
+require __DIR__ . '/src/db/Classes/Models/User.php';
+require __DIR__ . '/src/db/Classes/Controllers/AdminPanelController.php';
+require __DIR__ . '/src/db/Classes/Controllers/NewsController.php';
+require __DIR__ . '/src/db/Classes/Controllers/UserController.php';
+require __DIR__ . '/src/db/Classes/Dao/UserDao.php';
+require __DIR__ . '/src/db/Classes/Dao/NewsDao.php';
 
 session_start();
 // Se lanza toda la aplicacion.

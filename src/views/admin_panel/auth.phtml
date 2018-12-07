@@ -1,0 +1,47 @@
+<!------------------------------------------------------------------------
+-- Plantilla HTML para la página de portada del panel de administración --
+------------------------------------------------------------------------->
+<?php /* incluimos la plantilla goblal */ include __DIR__ . '/layout.phtml' ?>
+
+<main class="auth">
+    <div class="container-fluid row full-screen">
+        <div class="left-side">
+            <div>
+                <h2>Yaseal</h2>
+            </div>
+        </div>
+        <div class="right-side row center align-center">
+            <div class="area-form">
+
+                <h1>Bienvenido a tu panel de Edicción</h1>
+                <p>Desde aqui podras editar tus publicaciones, gestianarlas, o crear nuevas. Entra y descubro todas las novedades.</p>
+                <h4 class="inline enable" id="login-button">Login</h4>
+                <h4 class="inline" id="register-button">Register</h4>
+                <div class="form login" id="login-area">
+                    <form id="login-form" action="/admin_panel/login" method="post">
+                        <input type="text" name="email" placeholder="Email" <?php if (isset($email)) echo "value=$email"?>>
+                        <input type="password" name="password" placeholder="Contraseña">
+                        <button type="submit" class="button">Entrar</button>
+                        <p class="inline">¿Has perdido tu contraseña?</p>
+                    </form>
+                </div>
+                <div class="form register" id="register-area">
+                    <form id="register-form" action="/admin_panel/register" method="post">
+                        <input type="text" name="name" placeholder="Nombre y Apellidos" <?php if (isset($name)) echo "value=$name"?>>
+                        <input type="text" name="email" placeholder="Email" <?php if (isset($email)) echo "value=$email"?>>
+                        <input type="password" name="password" placeholder="Contraseña">
+                        <select name="role">
+                            <option value="1" <?php if (isset($role) && $role == 1) echo "selected"?>>Admin</option>
+                            <option value="2" <?php if (isset($role) && $role == 2) echo "selected"?>>Editor</option>
+                            <option value="3" <?php if (isset($role) && $role == 3) echo "selected"?>>Autor</option>
+                        </select>
+                        <button type="submit" class="button">Registrarse</button>
+                    </form>
+                </div>
+                <?php if (isset($notification)) { echo "<div>{$notification['msg']}</div>"; } ?>
+            </div>
+        </div>
+    </div>
+</main>
+
+<?php /* incluimos el footer */ include __DIR__ . '/footer.phtml' ?>

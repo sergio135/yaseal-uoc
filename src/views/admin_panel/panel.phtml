@@ -1,12 +1,32 @@
 <!------------------------------------------------------------------------
 -- Plantilla HTML para la página de portada del panel de administración --
 ------------------------------------------------------------------------->
-<?php /* incluimos la plantilla goblal */ include __DIR__ . '/../layout.phtml' ?>
-<?php /* incluimos la cabecera */ include __DIR__ . '/../header.phtml' ?>
+<?php /* incluimos la plantilla goblal */ include __DIR__ . '/layout.phtml' ?>
+<?php /* incluimos la cabecera */ include __DIR__ . '/header.phtml' ?>
 
-<h1>Admin Panel</h1>
+<main class="panel">
+<aside class="sidebar-left"></aside>
+<section class="content">
+    <div class="header">
+        <div class="title">
+            <h1>Articulos</h1>
+            <div class="area-button">
+                <a class="button outline red">Botones</a>
+                <a class="button outline red">Botones</a>
+            </div>
+        </div>
+        <div class="filters">
+            <span>Ordenar port</span>
+            <span>Buscar</span>
+        </div>
+    </div>
+    <div class="list">
+        <div class="card">
 
-<div>Nombre: <?php echo $user->getName() ?></div>
+        </div>
+    </div>
+
+<!-- <div>Nombre: <?php // echo $user->getName() ?></div> -->
 
 <br>
 
@@ -15,7 +35,7 @@
         $cssClas = $notification['type'];
         echo "<div class='$cssClas'>{$notification['msg']}</div>";
     }
-?>
+    ?>
 
 <h2>Lista de noticias</h2>
 <a href="add">Crear nueva noticia</a><br><br>
@@ -23,20 +43,23 @@
     if (isset($news)) {
         foreach ($news as $item) {
             echo "<div>
-                      <span>{$item->getTitle()}</span>
-                      <span>{$item->getCategory()}</span>
-                      <span>{$item->getSubtitle()}</span>
-                      <span>{$item->getDateCreated()}</span>
-                      <span>{$item->getAutor()->getName()}</span>
-                      <span><a href='/yaseal-local/admin_panel/edit/{$item->getId()}'>Editar</a></span>
-                  </div>";
+            <span>{$item->getTitle()}</span>
+            <span>{$item->getCategory()}</span>
+            <span>{$item->getSubtitle()}</span>
+            <span>{$item->getDateCreated()}</span>
+            <span>{$item->getAutor()->getName()}</span>
+            <span><a href='/yaseal-local/admin_panel/edit/{$item->getId()}'>Editar</a></span>
+            </div>";
         }
     } else {
         echo "<div>No hay nada que mostrar</div>";
     }
-?>
+    ?>
 
 <br>
 <a href="/yaseal-local/logout">Salir</a>
+    </section>
+    <aside class="sidebar-rigth"></aside>
+</main>
 
 <?php /* incluimos el footer */ include __DIR__ . '/../footer.phtml' ?>

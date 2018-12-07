@@ -5,18 +5,42 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-// metodo que maneja cada una de las llamadas a la ruta '/api/login'
-$app->get('/api/login', function (Request $request, Response $response, array $args) {
-    // $request: objeto que trae informacion sobre la peticion a la ruta.
-    // $response: objeto con metodos que sirve para responder al cliente.
-    // $args: deferentes argumentos pasados en la peticion.
+// Login
+$app->post('/api/login', function (Request $req, Response $res, array $args) {
 
-    // aun por terminar
-    $name = $args['name'];
-    $response->getBody()->write("Hello, $name");
+    // los datos que vienen del formulario
+    $dataForm = json_decode($req->getBody());
+
+
+    // $adminPanel = new AdminPanelController($this);
+    // $result = $adminPanel->login($req, $res, $args);
+    // if (array_key_exists("notification", $result)) {
+    //     $this->view->render($res, '/admin_panel/home.phtml', $result);
+    //     return;
+    // }
+    // $_SESSION['user'] = $result;
+    // return $res->withRedirect('panel', 301);
+
+
+    ///////////////////////////////////////////////// 
+    // Aqui solo hay que devolver una respuesta afirmativa o un error, y ya se controla la redireccion desde el frontEnd con JS
+    ///////////////////////////////////////////////// 
+
+    $statusCode = 200;
+    // la propiedad Error solo viene si hay algun error, si no, se envian los datos en la propiedad data
+    $data = [
+        'error' => [
+            'messagge' => 'El usuario no existe'
+        ],
+        'data' => [
+            'id' => 'a6s7d8a6sd',
+            'name' => 'Bob Jason',
+            'email' => 'asdasd@gmail.com'
+        ]
+    ];
 
     // devolver siempre el objeto $response
-    return $response;
+    return $res->withJson($data, $statusCode);
 });
 
 ?>
