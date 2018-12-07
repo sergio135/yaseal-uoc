@@ -30,38 +30,15 @@ $app->get('/', function (Request $request, Response $response, array $args) {
     // $response: objeto con metodos que sirve para responder al cliente.
     // $args: deferentes argumentos pasados en la peticion.
 
-
     // renderizamos la plantilla panel.phtml
-    $response = $this->view->render($response, 'home.phtml', []);
-
-    // devolver siempre el objeto $response
-    return $response;
+    return $this->view->render($response, 'home.phtml', []);
 });
 
-$app->get('/admin_panel', function (Request $req, Response $res, array $args) {
-    if (isset($_SESSION['user'])) {
-        return $res->withRedirect('admin_panel/panel');
-    }
-    $res = $this->view->render($res, 'admin_panel/home.phtml', []);
-    return $res;
-});
-
-// Login
-$app->post('/admin_panel/login', function (Request $req, Response $res, array $args) {
-    $adminPanel = new AdminPanelController($this);
-    $result = $adminPanel->login($req, $res, $args);
-    if (array_key_exists("notification", $result)) {
-        $this->view->render($res, '/admin_panel/home.phtml', $result);
-        return;
-    }
-    $_SESSION['user'] = $result;
-    return $res->withRedirect('panel', 301);
-});
 
 // Una ve iniciada la sesión se redirige al panel
 $app->get('/admin_panel/panel', function (Request $req, Response $res, array $args) {
     if (!isset($_SESSION['user'])) {
-        return $res->withRedirect('/yaseal-local/admin_panel');
+        return $res->withRedirect('/admin_panel');
     }
     $adminPanel = new AdminPanelController($this);
     $news = $adminPanel->listAllNews($req, $res, $args);
@@ -73,24 +50,6 @@ $app->get('/admin_panel/panel', function (Request $req, Response $res, array $ar
     $this->view->render($res, 'admin_panel/panel.phtml', $args);
 });
 
-// Registro
-//$app->post('/admin_panel/register', AdminPanelController::class . ':register');
-$app->post('/admin_panel/register', function(Request $req, Response $res, array $args) {
-    $adminPanel = new AdminPanelController($this);
-    $result = $adminPanel->register($req, $res, $args);
-    if (array_key_exists("notification", $result)) {
-        $this->view->render($res, '/admin_panel/home.phtml', $result);
-        return;
-    }
-    $_SESSION['user'] = $result;
-    return $res->withRedirect('panel', 301);
-});
-
-// Logout
-$app->any('/logout', function(Request $req, Response $res, array $args) {
-    session_destroy();
-    return $res->withRedirect('./');
-});
 
 // Añadir noticias
 $app->get('/admin_panel/add', function (Request $req, Response $res, array $args) {

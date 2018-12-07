@@ -114,6 +114,14 @@ input {
   font-size: 16px;
 }
 
+select {
+  width: 100%;
+  border: none;
+  margin-bottom: 10px;
+  background-color: #ffffff;
+  height: 45px;
+}
+
 .button {
   display: inline-block;
   padding: 6px 20px;
@@ -171,6 +179,8 @@ input.white {
   padding-bottom: 8px;
   margin-bottom: 10px;
   margin-right: 10px;
+  transition: 0.2s;
+  cursor: pointer;
 }
 
 .auth h4.enable {
@@ -192,7 +202,7 @@ input.white {
 }
 .auth .right-side .area-form {
   width: 100%;
-  max-width: 400px;
+  max-width: 350px;
 }
 
 .auth .form {

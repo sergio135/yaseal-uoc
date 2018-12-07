@@ -5,18 +5,17 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-// metodo que maneja cada una de las llamadas a la ruta '/api/register'
-$app->get('/api/register', function (Request $request, Response $response, array $args) {
-    // $request: objeto que trae informacion sobre la peticion a la ruta.
-    // $response: objeto con metodos que sirve para responder al cliente.
-    // $args: deferentes argumentos pasados en la peticion.
-
-    // aun por terminar
-    $name = $args['name'];
-    $response->getBody()->write("Hello, $name");
-
-    // devolver siempre el objeto $response
-    return $response;
+// Registro
+//$app->post('/admin_panel/register', AdminPanelController::class . ':register');
+$app->post('/api/register', function(Request $req, Response $res, array $args) {
+    $adminPanel = new AdminPanelController($this);
+    $result = $adminPanel->register($req, $res, $args);
+    if (array_key_exists("notification", $result)) {
+        $this->view->render($res, '/admin_panel/home.phtml', $result);
+        return;
+    }
+    $_SESSION['user'] = $result;
+    return $res->withRedirect('panel', 301);
 });
 
 ?>
