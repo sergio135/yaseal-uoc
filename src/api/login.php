@@ -8,6 +8,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 // Login
 $app->post('/api/login', function (Request $req, Response $res, array $args) {
 
+    // los datos que vienen del formulario
     $dataForm = json_decode($req->getBody());
 
 
@@ -20,6 +21,10 @@ $app->post('/api/login', function (Request $req, Response $res, array $args) {
     // $_SESSION['user'] = $result;
     // return $res->withRedirect('panel', 301);
 
+
+    ///////////////////////////////////////////////// 
+    // Aqui solo hay que devolver una respuesta afirmativa o un error, y ya se controla la redireccion desde el frontEnd con JS
+    ///////////////////////////////////////////////// 
 
     $statusCode = 200;
     // la propiedad Error solo viene si hay algun error, si no, se envian los datos en la propiedad data

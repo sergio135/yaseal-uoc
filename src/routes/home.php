@@ -35,51 +35,6 @@ $app->get('/', function (Request $request, Response $response, array $args) {
 });
 
 
-// Una ve iniciada la sesión se redirige al panel
-$app->get('/admin_panel/panel', function (Request $req, Response $res, array $args) {
-    if (!isset($_SESSION['user'])) {
-        return $res->withRedirect('/admin_panel');
-    }
-    $adminPanel = new AdminPanelController($this);
-    $news = $adminPanel->listAllNews($req, $res, $args);
-    $args = array("user"=>$_SESSION['user'], "news" => $news);
-    if (isset($_SESSION['notification'])) {
-        $args['notification'] = $_SESSION['notification'];
-        unset($_SESSION['notification']);
-    }
-    $this->view->render($res, 'admin_panel/panel.phtml', $args);
-});
-
-
-// Añadir noticias
-$app->get('/admin_panel/add', function (Request $req, Response $res, array $args) {
-    $res = $this->view->render($res, 'admin_panel/add_edit_news.phtml', []);
-    return $res;
-});
-$app->post('/admin_panel/add', function (Request $req, Response $res, array $args) {
-    $newsController = new NewsController($this);
-    $result = $newsController->addNews($req, $res, $args);
-
-    if (array_key_exists('notification', $result)) {
-        $this->view->render($res, '/admin_panel/add_edit_news.phtml', $result);
-        return;
-    }
-    $_SESSION['notification'] = array("type" => "success",
-                                      "msg" => "Ha creado correctamente una nueva publicación");
-    return $res->withRedirect('panel', 301);
-});
-
-// Editar noticias
-$app->get('/admin_panel/edit/{id}', function (Request $req, Response $res, array $args) {
-    $route = $req->getAttribute('route');
-    $newsId = $route->getArgument('id');
-
-    $newsController = new NewsController($this);
-    $args = $newsController->getNewsById($newsId);
-
-    $res = $this->view->render($res, 'admin_panel/add_edit_news.phtml', $args);
-    return $res;
-});
 //$app->post('/admin_panel/edit/{id}', function (Request $req, Response $res, array $args) {
 //    $route = $req->getAttribute('route');
 //    $newsId = $route->getArgument('id');
