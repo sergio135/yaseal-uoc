@@ -9,7 +9,6 @@ use \Psr\Http\Message\ResponseInterface as Response;
 $app->post('/api/login', function (Request $req, Response $res, array $args) {
 
     $dataForm = json_decode($req->getBody());
-    error_log($dataForm);
 
 
     // $adminPanel = new AdminPanelController($this);
