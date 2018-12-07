@@ -132,11 +132,10 @@ select {
 }
 
 .button.outline {
-  background: none;
-  padding: 0;
+  background: none !important;
 }
 .button.outline:hover {
-  background: none;
+  background: none !important;
 }
 
 /************ Colors *************/
@@ -147,10 +146,12 @@ input.white {
 
 .button.red {
   background-color: #fe6d4e;
+  border: 2px solid #fe6d4e;
   color: #581845;
 }
 .button.red:hover {
   background-color: #ffc300;
+  border: 2px solid #ffc300;
   color: #581845;
 }
 
@@ -215,4 +216,81 @@ input.white {
 
 .auth .form.register {
   display: none;
+}
+
+/************ Header *************/
+header.admin-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 100px auto 200px;
+  justify-items: stretch;
+  align-items: stretch;
+  justify-content: stretch;
+  align-content: stretch;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.2);
+  z-index: 3;
+}
+
+header.admin-header div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+header.admin-header .area-title h3 {
+  margin: 0;
+  display: inline-block;
+}
+/************ Panel *************/
+.panel {
+  display: grid;
+  grid-template-rows: 100px 1fr 100px;
+  grid-template-columns: 100px auto 200px;
+  justify-items: stretch;
+  align-items: stretch;
+  justify-content: stretch;
+  align-content: stretch;
+  min-height: 100vh;
+}
+
+.panel aside.sidebar-left {
+  z-index: 2;
+  grid-area: 2 / 1 / span 1 / span 1;
+  box-shadow: 10px 0px 15px -5px rgba(0, 0, 0, 0.4);
+}
+
+.panel aside.sidebar-rigth {
+  z-index: 2;
+  grid-area: 2 / 3 / span 1 / span 1;
+  box-shadow: -10px 0px 15px -5px rgba(0, 0, 0, 0.4);
+}
+
+.panel section.content {
+  z-index: 1;
+  grid-area: 2 / 2 / span 1 / span 1;
+  background-color: #f8f8f8;
+  padding: 70px;
+}
+
+.panel section.content .header {
+  padding-bottom: 10px;
+  border-bottom: 2px solid #9a9c9d;
+}
+
+.panel section.content .header .title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.panel section.content .header .title h1 {
+  margin: 0;
+}
+.panel section.content .header .filters {
 }
