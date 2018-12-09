@@ -71,11 +71,13 @@ CREATE TABLE IF NOT EXISTS table_keyword (
 	CONSTRAINT fk_keyword_news FOREIGN KEY (news_id) REFERENCES table_news(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO table_role (id, name, description) VALUES
-(1, 'admin', 'Administrador'),
-(2, 'editor', 'Editor'),
-(3, 'autor', 'Autor');
+INSERT INTO table_role ( name, description) VALUES
+('admin', 'Administrador'),
+('editor', 'Editor'),
+('autor', 'Autor');
 
-INSERT INTO table_category (id, name, parent) VALUES
-(1, 'Categoría 1', NULL),
-(2, 'Categoría 2', NULL);
+INSERT INTO table_category (name, parent) VALUES
+('Internacional', NULL),
+('Local', NULL),
+('Deportes', NULL),
+('Tiempo', NULL);
