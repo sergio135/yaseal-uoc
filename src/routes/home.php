@@ -30,6 +30,13 @@ $app->get('/', function (Request $request, Response $response, array $args) {
     // $response: objeto con metodos que sirve para responder al cliente.
     // $args: deferentes argumentos pasados en la peticion.
 
+    $newsController = new NewsController($this);
+    $_SESSION['news'] = $newsController->listAllNews();
+    $_SESSION['newsInternational'] = $newsController->getNewsByCategoryId(1);
+    $_SESSION['newsLocal'] = $newsController->getNewsByCategoryId(2);
+    $_SESSION['newsSports'] = $newsController->getNewsByCategoryId(3);
+    $_SESSION['newsWeather'] = $newsController->getNewsByCategoryId(4);
+
     // renderizamos la plantilla panel.phtml
     return $this->view->render($response, 'home.phtml', []);
 });

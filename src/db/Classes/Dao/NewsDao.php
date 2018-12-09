@@ -132,4 +132,30 @@ class NewsDao {
             $this->setError($e->getMessage());
         }
     }
+
+
+    public function listAllInCategory($categoryId) {
+        $db = $this->getConn();
+        $list = array();
+        try {
+            $sql = "SELECT n.*, GROUP_CONCAT(k.name SEPARATOR ', ') 'keywords'
+                FROM table_news n,table_keyword k
+                WHERE n.id = k.news_id
+                AND n.category_id = $categoryId
+                GROUP BY n.id
+                ORDER BY n.date_created DESC";
+
+            $stmt = $db->query($sql)->fetchAll();
+
+            foreach ($stmt as $row) {
+                $news = new News();
+                $news->fill($db, $row);
+                array_push($list, $news);
+            }
+
+            return $list;
+        } catch (\Exception $e) {
+            $this->setError($e->getMessage());
+        }
+    }
 }

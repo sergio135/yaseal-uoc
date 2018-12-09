@@ -133,4 +133,26 @@ class NewsController {
 
         return $filename;
     }
+
+    public function getNewsByCategoryId($categoryId) {
+        $newsDao = new NewsDao($this->container['db']);
+        $news = $newsDao->listAllInCategory($categoryId);
+
+        if ($newsDao->getError() != null) {
+            return;
+        }
+
+        return $news;
+    }
+
+    public function listAllNews() {
+        $newsDao = new NewsDao($this->container['db']);
+        $news = $newsDao->listAll();
+
+        if ($newsDao->getError()) {
+            return $newsDao->getError();
+        }
+
+        return $news;
+    }
 }

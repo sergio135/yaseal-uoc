@@ -3,67 +3,100 @@
 --------------------------------------------->
 <?php /* incluimos la plantilla goblal */ include __DIR__ . '/layout.phtml' ?>
 <?php /* incluimos la cabecera */ include __DIR__ . '/header.phtml' ?>
+<link rel="stylesheet" href="./public/css/home.css">
 
+<div class="portada">
+  <img class="img-portada" src="public\images\portada.jpg" alt="portada">
+  <div class="texto-portada">
+    <h1 id="titulo-portada">¿Qué pasaría si el Pasejo ganase los últimos juegos olímpicos?</h1>
+    <span id="autor-portada">Sergio García  <span>|</span></span>
+    <span id="fecha-portada">Hace 6 meses</span>
+  </div>
+</div>
 
-<div id="header">
-    <img id="logo" src="logo.png" alt="logo">
-    <ul id="menu">
-        <li><a href="">Internacional</a></li>
-        <li><a href="">Local</a></li>
-        <li><a href="">Deportes</a></li>
-        <li><a href="">Tiempo</a></li>
-    </ul>
-    <ul id="registro">
-        <li><a href="">Registro</a></li>
-        <li><a href="">Inicia sesión</a></li>
-    </ul>
+<div class=noticias>
+  <section class="cards">
+     <?php    
+      $news = array_slice($_SESSION['news'], 0, 3);
+      foreach($news as $new) {
+        echo  "<article>
+            <a href=''> <img class='article-img' src={$new->getImg()} alt=''/></a>
+            <a href=''> <h3 class='article-title'>{$new->getTitle()}</h3></a>
+              <p>{$new->getContent()} asdhjzfaskj<dkj<zf</p>
+          </article>";
+     }  
+     ?>
+  </section>
+
+  <section class="cards">
+    <h2 class="titulo-seccion"> Internacional</h2>  
+  </section>
+
+  <section class="cards">
+    <?php    
+      $news = array_slice($_SESSION['newsInternational'], 0, 3);
+      foreach($news as $new) {
+     echo  "<article>
+        <a href=''> <img class='article-img' src={$new->getImg()} alt=''/></a>
+        <a href=''> <h3 class='article-title'>{$new->getTitle()}</h3></a>
+          <p>{$new->getContent()} </p>
+      </article>";
+     } 
+     ?>
+  </section>
+
+  <section class="cards">
+    <h2 class="titulo-seccion">Local</h2>  
+  </section>
+
+  <section class="cards">
+    <?php    
+       $news = array_slice($_SESSION['newsLocal'], 0, 3);
+      foreach($news as $new) {
+     echo  "<article>
+        <a href=''> <img class='article-img' src={$new->getImg()} alt=''/></a>
+        <a href=''> <h3 class='article-title'>{$new->getTitle()}</h3></a>
+          <p>{$new->getContent()} </p>
+      </article>"; 
+     }
+      ?>
+  </section>
+
+  <section class="cards">
+    <h2 class="titulo-seccion">Deportes</h2>  
+  </section>
+
+  <section class="cards">
+    <?php    
+      $news = array_slice($_SESSION['newsSports'], 0, 3);
+      foreach($news as $new) {
+      echo  "<article>
+        <a href=''> <img class='article-img' src={$new->getImg()} alt=''/></a>
+        <a href=''> <h3 class='article-title'>{$new->getTitle()}</h3></a>
+          <p>{$new->getContent()} </p>
+      </article>"; 
+     }
+      ?>
+  </section>
+
+  <section class="cards">
+    <h2 class="titulo-seccion">El tiempo</h2>  
+  </section>
+  
+  <section class="cards">
+    <?php    
+      $news = array_slice($_SESSION['newsWeather'], 0, 3);
+      foreach($news as $new) {
+      echo  "<article>
+        <a href=''> <img class='article-img' src={$new->getImg()} alt=''/></a>
+        <a href=''> <h3 class='article-title'>{$new->getTitle()}</h3></a>
+          <p>{$new->getContent()} </p>
+      </article>"; 
+     }
+     ?>
+  </section>
 
 </div>
 
-
-
-<div id="portada">
-    <img id="img-portada" src="" alt="portada">
-    <h1 id="titulo-portada">Titulo</h1>
-    <h3 id="autor-portada">Autor</h3>
-    <h3 id="fecha-portada">Fecha</h3>
-</div>
-
-<section id="noticias-home">
-
-    <div id="internacional">
-        <div class="noticia-grid">
-            <img class="imagen-grid" src="" alt="">
-            <h2 class="titulo-grid">Titulo</h2>
-            <p class="texto-grid">Texto</p>
-        </div>
-    </div>
-
-    <div id="local">
-            <div class="noticia-grid">
-                <img class="imagen-grid" src="" alt="">
-                <h2 class="titulo-grid">Titulo</h2>
-                <p class="texto-grid">Texto</p>
-            </div>
-        </div>
-
-    <div id="deportes">
-            <div class="noticia-grid">
-                <img class="imagen-grid" src="" alt="">
-                <h2 class="titulo-grid">Titulo</h2>
-                <p class="texto-grid">Texto</p>
-            </div>
-        </div>
-
-    <div id="tiempo">
-            <div class="noticia-grid">
-                <img class="imagen-grid" src="" alt="">
-                <h2 class="titulo-grid">Titulo</h2>
-                <p class="texto-grid">Texto</p>
-            </div>
-        </div>
-
-
-</section>
-
+<script type="text/javascript" src="./public/js/admin-main.js"></script>
 <?php /* incluimos el footer */ include __DIR__ . '/footer.phtml' ?>
