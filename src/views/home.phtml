@@ -15,86 +15,29 @@
 </div>
 
 <div class=noticias>
-  <section class="cards">
-     <?php    
-      $news = array_slice($_SESSION['news'], 0, 3);
+
+  <?php 
+
+    $newsArray = $_SESSION['news'];
+
+    foreach($newsArray as $newsCategory => $news) {
+      if($newsCategory !== '') {
+        echo "<section class='cards'>
+                <h2 class='titulo-seccion'>{$newsCategory}</h2>  
+              </section>";
+      }
+      echo  " <section class='cards'>";
       foreach($news as $new) {
-        echo  "<article>
-            <a href=''> <img class='article-img' src={$new->getImg()} alt=''/></a>
-            <a href=''> <h3 class='article-title'>{$new->getTitle()}</h3></a>
-              <p>{$new->getContent()} asdhjzfaskj<dkj<zf</p>
-          </article>";
-     }  
-     ?>
-  </section>
-
-  <section class="cards">
-    <h2 class="titulo-seccion"> Internacional</h2>  
-  </section>
-
-  <section class="cards">
-    <?php    
-      $news = array_slice($_SESSION['newsInternational'], 0, 3);
-      foreach($news as $new) {
-     echo  "<article>
-        <a href=''> <img class='article-img' src={$new->getImg()} alt=''/></a>
-        <a href=''> <h3 class='article-title'>{$new->getTitle()}</h3></a>
-          <p>{$new->getContent()} </p>
-      </article>";
-     } 
-     ?>
-  </section>
-
-  <section class="cards">
-    <h2 class="titulo-seccion">Local</h2>  
-  </section>
-
-  <section class="cards">
-    <?php    
-       $news = array_slice($_SESSION['newsLocal'], 0, 3);
-      foreach($news as $new) {
-     echo  "<article>
-        <a href=''> <img class='article-img' src={$new->getImg()} alt=''/></a>
-        <a href=''> <h3 class='article-title'>{$new->getTitle()}</h3></a>
-          <p>{$new->getContent()} </p>
-      </article>"; 
-     }
-      ?>
-  </section>
-
-  <section class="cards">
-    <h2 class="titulo-seccion">Deportes</h2>  
-  </section>
-
-  <section class="cards">
-    <?php    
-      $news = array_slice($_SESSION['newsSports'], 0, 3);
-      foreach($news as $new) {
-      echo  "<article>
-        <a href=''> <img class='article-img' src={$new->getImg()} alt=''/></a>
-        <a href=''> <h3 class='article-title'>{$new->getTitle()}</h3></a>
-          <p>{$new->getContent()} </p>
-      </article>"; 
-     }
-      ?>
-  </section>
-
-  <section class="cards">
-    <h2 class="titulo-seccion">El tiempo</h2>  
-  </section>
+          echo "<article>
+                  <a href=''> <img class='article-img' src={$new->getImg()} alt=''/></a>
+                  <a href=''> <h3 class='article-title'>{$new->getTitle()}</h3></a>
+                    <p>{$new->getContent()} </p>
+                </article> "; 
+      }
+      echo " </section>";
+    }
   
-  <section class="cards">
-    <?php    
-      $news = array_slice($_SESSION['newsWeather'], 0, 3);
-      foreach($news as $new) {
-      echo  "<article>
-        <a href=''> <img class='article-img' src={$new->getImg()} alt=''/></a>
-        <a href=''> <h3 class='article-title'>{$new->getTitle()}</h3></a>
-          <p>{$new->getContent()} </p>
-      </article>"; 
-     }
-     ?>
-  </section>
+  ?>
 
 </div>
 

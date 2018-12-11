@@ -31,16 +31,47 @@ $app->get('/', function (Request $request, Response $response, array $args) {
     // $args: deferentes argumentos pasados en la peticion.
 
     $newsController = new NewsController($this);
-    $_SESSION['news'] = $newsController->listAllNews();
-    $_SESSION['newsInternational'] = $newsController->getNewsByCategoryId(1);
-    $_SESSION['newsLocal'] = $newsController->getNewsByCategoryId(2);
-    $_SESSION['newsSports'] = $newsController->getNewsByCategoryId(3);
-    $_SESSION['newsWeather'] = $newsController->getNewsByCategoryId(4);
 
+    $_SESSION['news'] = array(
+        '' => array_slice($newsController->listAllNews(), 0, 3),
+        'Internacional' => array_slice($newsController->getNewsByCategoryId(1), 0, 3),
+        'Local' => array_slice($newsController->getNewsByCategoryId(2), 0, 3),
+        'Deportes' => array_slice($newsController->getNewsByCategoryId(3), 0, 3),
+        'El tiempo' => array_slice($newsController->getNewsByCategoryId(4), 0, 3)
+      );
+      
     // renderizamos la plantilla panel.phtml
     return $this->view->render($response, 'home.phtml', []);
 });
 
+
+$app->get('/internacional', function (Request $request, Response $response, array $args) {
+    $newsController = new NewsController($this);
+    $_SESSION['news'] = array('internacionales' => $newsController->getNewsByCategoryId(1));
+      
+    return $this->view->render($response, 'noticiasCategoria.phtml', []);
+});
+
+$app->get('/local', function (Request $request, Response $response, array $args) {
+    $newsController = new NewsController($this);
+    $_SESSION['news'] = array('locales' => $newsController->getNewsByCategoryId(2));
+      
+    return $this->view->render($response, 'noticiasCategoria.phtml', []);
+});
+
+$app->get('/deportes', function (Request $request, Response $response, array $args) {
+    $newsController = new NewsController($this);
+    $_SESSION['news'] = array('sobre deportes' => $newsController->getNewsByCategoryId(3));
+      
+    return $this->view->render($response, 'noticiasCategoria.phtml', []);
+});
+
+$app->get('/tiempo', function (Request $request, Response $response, array $args) {
+    $newsController = new NewsController($this);
+    $_SESSION['news'] = array('sobre el tiempo' => $newsController->getNewsByCategoryId(4));
+      
+    return $this->view->render($response, 'noticiasCategoria.phtml', []);
+});
 
 //$app->post('/admin_panel/edit/{id}', function (Request $req, Response $res, array $args) {
 //    $route = $req->getAttribute('route');
