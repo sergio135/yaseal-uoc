@@ -3,6 +3,7 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use Classes\Dao\UserDao;
 use Classes\Dao\NewsDao;
+use Classes\Models\User;
 
 class AdminPanelController {
     protected $container;
@@ -28,7 +29,7 @@ class AdminPanelController {
                          "email" => $email);
         } else {
             $user = $userDao->login($email, $pass);
-            if (!($user instanceof \Classes\Models\User)) {
+            if (!($user instanceof User)) {
                 // Si la BD ha devuelto error
                 return array("notification" => array("type" => "error",
                                                      "msg" => $userDao->getError()),

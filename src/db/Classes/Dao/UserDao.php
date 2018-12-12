@@ -2,6 +2,7 @@
 namespace Classes\Dao;
 
 use Classes\Models\User;
+use Exception;
 use PDO;
 
 class UserDao {
@@ -41,7 +42,7 @@ class UserDao {
                 $user->fill($row);
             }
             return $user;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             echo $e->getMessage();
         }
 
@@ -58,14 +59,15 @@ class UserDao {
             $stmt->execute(['email' => $email]);
             $row = $stmt->fetch();
             $user = new User();
+            if (!$row) throw new Exception('El usuario no existe');
             $user->fill($row);
 
             if (!password_verify($pass, $user->getPassword())) {
-                throw new \Exception('Usuario o contraseña incorrecto');
+                throw new Exception('Usuario o contraseña incorrecto');
             }
             $db->commit();
             return $user;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $db->rollBack();
             switch ($e->getCode()) {
                 case '42S22':

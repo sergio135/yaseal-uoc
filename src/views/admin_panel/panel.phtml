@@ -11,7 +11,7 @@
         <div class="title">
             <h1>Articulos</h1>
             <div class="area-button">
-                <a class="button outline red">Botones</a>
+                <a class="button outline red" href="add">Añadir Noticia</a>
                 <a class="button outline red">Botones</a>
             </div>
         </div>
@@ -21,13 +21,22 @@
         </div>
     </div>
     <div class="list">
-        <div class="card">
-
-        </div>
+<?php
+if (isset($news)) {
+    foreach ($news as $item) {
+        echo "<div class='card'>
+                <div class='card-content'><a href='/yaseal-local/admin_panel/edit/{$item->getId()}'>{$item->getTitle()}</a></div>
+                <div class='card-content'>{$item->getCategory()}</div>
+                <div class='card-content'>{$item->getDateCreated()}</div>
+                <div class='card-content'>{$item->getAutor()->getName()}</div>
+                <div class='clear'></div>
+              </div>";
+    }
+} else {
+    echo "<div>No hay nada que mostrar</div>";
+}
+?>
     </div>
-
-<!-- <div>Nombre: <?php // echo $user->getName() ?></div> -->
-
 <br>
 
 <?php
@@ -37,27 +46,7 @@
     }
     ?>
 
-<h2>Lista de noticias</h2>
-<a href="add">Crear nueva noticia</a><br><br>
-<?php
-    if (isset($news)) {
-        foreach ($news as $item) {
-            echo "<div>
-            <span>{$item->getTitle()}</span>
-            <span>{$item->getCategory()}</span>
-            <span>{$item->getSubtitle()}</span>
-            <span>{$item->getDateCreated()}</span>
-            <span>{$item->getAutor()->getName()}</span>
-            <span><a href='/yaseal-local/admin_panel/edit/{$item->getId()}'>Editar</a></span>
-            </div>";
-        }
-    } else {
-        echo "<div>No hay nada que mostrar</div>";
-    }
-    ?>
-
 <br>
-<a href="/yaseal-local/logout">Salir</a>
     </section>
     <aside class="sidebar-rigth"></aside>
 </main>

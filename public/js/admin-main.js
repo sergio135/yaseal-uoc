@@ -50,7 +50,7 @@ const yaseal = {
     domain: window.location.origin
   },
   api: {
-    login: `${window.location.origin}/api/login`,
+    login: `${window.location.origin}/yaseal-local/api/login`,
     register: `${window.location.origin}/api/register`
   }
 };
@@ -78,31 +78,31 @@ window.onload = () => {
 
   const loginForm = document.querySelector("#login-form");
   const registerForm = document.querySelector("#register-form");
-  if (loginForm && registerForm) {
-    loginForm.addEventListener("submit", event => {
-      event.preventDefault();
-      const { email, password } = event.target.children;
-      axios
-        .post(yaseal.api.login, { email, password })
-        .then(function(res) {
-          console.log(res);
-        })
-        .catch(function(err) {
-          console.error(err);
-        });
-    });
-
-    registerForm.addEventListener("submit", event => {
-      event.preventDefault();
-      const { email, password } = event.target.children;
-      axios
-        .post(yaseal.api.register, { email, password })
-        .then(function(res) {
-          console.log(res);
-        })
-        .catch(function(err) {
-          console.error(err);
-        });
-    });
-  }
+  // if (loginForm && registerForm) {
+  //   loginForm.addEventListener("submit", event => {
+  //     event.preventDefault();
+  //     const { email, password } = event.target.children;
+  //     axios
+  //       .post(yaseal.api.login, { email, password })
+  //       .then(function(res) {
+  //         document.write(res.data);
+  //       })
+  //       .catch(function(err) {
+  //         console.error(err);
+  //       });
+  //   });
+  //
+  //   registerForm.addEventListener("submit", event => {
+  //     event.preventDefault();
+  //     const { email, password } = event.target.children;
+  //     axios
+  //       .post(yaseal.api.register, { email, password })
+  //       .then(function(res) {
+  //         console.log(res);
+  //       })
+  //       .catch(function(err) {
+  //         console.error(err);
+  //       });
+  //   });
+  // }
 };
