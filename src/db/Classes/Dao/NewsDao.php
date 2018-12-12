@@ -1,6 +1,7 @@
 <?php
 namespace Classes\Dao;
 use Classes\Models\News;
+use Exception;
 use PDO;
 
 class NewsDao {
@@ -46,7 +47,7 @@ class NewsDao {
             $id = $db->lastInsertId();
             // Insertar palabras clave
             foreach ($keywords as $keyword) {
-                if (!$result) throw new \Exception($db->errorInfo());
+                if (!$result) throw new Exception($db->errorInfo());
 
                 $stmt = $db->prepare("INSERT INTO table_keyword (news_id, name)
                                   VALUES (:id, :name)");
@@ -56,7 +57,7 @@ class NewsDao {
             }
             $db->commit();
             return $result;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $db->rollBack();
             $this->setError($e->getMessage());
         }
@@ -81,7 +82,7 @@ class NewsDao {
             }
 
             return $list;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->setError($e->getMessage());
         }
     }
@@ -98,7 +99,7 @@ class NewsDao {
             $row = $stmt->fetch();
             $news->fill($db, $row);
             return $news;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->setError($e->getMessage());
         }
     }
@@ -128,7 +129,7 @@ class NewsDao {
 //                $stmt->bindParam('name', $keyword);
 //                $result = $stmt->execute();
 //            }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->setError($e->getMessage());
         }
     }
@@ -154,7 +155,18 @@ class NewsDao {
             }
 
             return $list;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
+            $this->setError($e->getMessage());
+        }
+    }
+
+    public function getCategories() {
+        $db = $this->getConn();
+        try {
+            $sql = "SELECT id, name FROM table_category";
+            $result = $db->query($sql)->fetchAll(PDO::FETCH_KEY_PAIR);
+            return $result;
+        } catch (Exception $e) {
             $this->setError($e->getMessage());
         }
     }

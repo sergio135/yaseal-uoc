@@ -2,7 +2,8 @@
 -- Plantilla HTML para la página de portada del panel de administración --
 ------------------------------------------------------------------------->
 <?php /* incluimos la plantilla goblal */ include __DIR__ . '/../layout.phtml' ?>
-<?php /* incluimos la cabecera */ include __DIR__ . '/../header.phtml' ?>
+<?php /* incluimos la cabecera */ include __DIR__ . '/../header.phtml' ;
+                var_dump($categories);?>
 
 <h1>Añadir noticia</h1>
 
@@ -10,9 +11,14 @@
     <input type="text" name="title" placeholder="Título" value="<?php if (isset($title)) echo $title?>">
     <input type="text" name="subtitle" placeholder="subtítulo" value="<?php if (isset($subtitle)) echo $subtitle?>">
     <select name="category_id">
-        <option value="1" <?php if (isset($category_id) && $category_id == 1) echo "selected"?>>Categoría 1</option>
-        <option value="2" <?php if (isset($category_id) && $category_id == 2) echo "selected"?>>Categoría 2</option>
-        <option value="3" <?php if (isset($category_id) && $category_id == 3) echo "selected"?>>Categoría 3</option>
+        <?php
+        if (isset($categories)) {
+            foreach ($categories as $id => $name) {
+                $selected = (isset($category_id) && $category_id == $id) ? 'selected' : '';
+                echo "<option value='{$id}' {$selected}>{$name}</option>";
+            }
+        }
+        ?>
     </select>
 <?php
 if (isset($img) && $img) {

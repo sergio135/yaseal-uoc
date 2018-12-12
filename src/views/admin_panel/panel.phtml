@@ -26,7 +26,7 @@ if (isset($news)) {
     foreach ($news as $item) {
         echo "<div class='card'>
                 <div class='card-content'><a href='/yaseal-local/admin_panel/edit/{$item->getId()}'>{$item->getTitle()}</a></div>
-                <div class='card-content'>{$item->getCategory()}</div>
+                <div class='card-content'>{$categories[$item->getCategory()]}</div>
                 <div class='card-content'>{$item->getDateCreated()}</div>
                 <div class='card-content'>{$item->getAutor()->getName()}</div>
                 <div class='clear'></div>

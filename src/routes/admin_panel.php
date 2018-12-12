@@ -12,7 +12,10 @@ $app->get('/admin_panel/panel', function (Request $req, Response $res, array $ar
      }
      $adminPanel = new AdminPanelController($this);
      $news = $adminPanel->listAllNews($req, $res, $args);
-     $args = array("user"=>$_SESSION['user'], "news" => $news);
+     $nc = new NewsController($this);
+     $categories = $nc->getCategories();
+
+     $args = array("user"=>$_SESSION['user'], "news" => $news, "categories" => $categories);
      if (isset($_SESSION['notification'])) {
          $args['notification'] = $_SESSION['notification'];
          unset($_SESSION['notification']);

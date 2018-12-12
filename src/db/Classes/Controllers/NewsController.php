@@ -155,4 +155,13 @@ class NewsController {
 
         return $news;
     }
+
+    public function getCategories() {
+        $newsDao = new NewsDao($this->container['db']);
+        $categories = $newsDao->getCategories();
+        if ($newsDao->getError()) {
+            return $newsDao->getError();
+        }
+        return $categories;
+    }
 }
