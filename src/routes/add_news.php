@@ -7,7 +7,9 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 // Añadir noticias
 $app->get('/admin_panel/add', function (Request $req, Response $res, array $args) {
-    $res = $this->view->render($res, 'admin_panel/add_edit_news.phtml', []);
+    $newsController = new NewsController($this);
+    $categories = $newsController->getCategories();
+    $res = $this->view->render($res, 'admin_panel/add_edit_news.phtml', ['categories'=>$categories]);
     return $res;
 });
 $app->post('/admin_panel/add', function (Request $req, Response $res, array $args) {

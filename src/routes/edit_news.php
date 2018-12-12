@@ -21,4 +21,20 @@ $app->get('/admin_panel/edit/{id}', function (Request $req, Response $res, array
     return $res;
 });
 
+$app->post('/admin_panel/edit/{id}', function (Request $req, Response $res, array $args) {
+    $route = $req->getAttribute('route');
+    $newsId = $route->getArgument('id');
+
+    $newsController = new NewsController($this);
+    $result = $newsController->updateNews($req, $newsId);
+
+    if (array_key_exists('notification', $result)) {
+        $this->view->render($res, '/admin_panel/add_edit_news.phtml', $result);
+        return;
+    }
+    $_SESSION['notification'] = array("type" => "success",
+        "msg" => "Ha modificado correctamente una nueva publicación");
+    return $res->withRedirect("/yaseal-local/admin_panel/edit/{$newsId}", 301);
+});
+
 ?>

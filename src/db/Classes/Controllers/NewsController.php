@@ -107,14 +107,17 @@ class NewsController {
         }
 
         // Si toda la info ok
-        // Insertar la nueva noticia
+        // Editar la noticia
         $newsDao = new NewsDao($this->container['db']);
-        $isInserted = $newsDao->edit($title, $subtitle, $content, $filename, $category_id, $keywords);
+        $isEdited = $newsDao->edit($id, $title, $subtitle, $content, $filename, $category_id, $keywords);
 
-        if ($isInserted) {
+        if ($isEdited) {
             return true;
         } else {
-            unlink(__DIR__ . '/../../../../public/img/news' . DIRECTORY_SEPARATOR . $filename);
+            if ($filename) {
+                chmod(__DIR__ . '/../../../../public/img/news' . DIRECTORY_SEPARATOR . $filename, 0777);
+                unlink(__DIR__ . '/../../../../public/img/news' . DIRECTORY_SEPARATOR . $filename);
+            }
             $args = array("notification" => array("type" => "error",
                                                         "msg" => $newsDao->getError()),
                           "title" => $title,

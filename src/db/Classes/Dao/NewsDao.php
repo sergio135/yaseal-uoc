@@ -63,6 +63,64 @@ class NewsDao {
         }
     }
 
+    public function edit($id, $title, $subtitle, $content, $img, $category_id, $keywords) {
+        $db = $this->getConn();
+        $db->beginTransaction();
+        $user = $_SESSION['user']->getId();
+        try {
+            if (!$img) {
+                // Si no se cambia la imagen se busca la actual
+                $stmt = $db->prepare("SELECT img FROM table_news
+                                      WHERE id = :id");
+                $stmt->execute(['id' => $id]);
+                $img = $stmt->fetchColumn();
+            }
+
+            // Modificar noticia
+            $stmt = $db->prepare("UPDATE table_news
+                                  SET title = :title,
+                                      subtitle = :subtitle,
+                                      date_modified = CURRENT_DATE,
+                                      content = :content,
+                                      img = :img,
+                                      editor = :editor,
+                                      category_id = :category_id
+                                  WHERE id = :id");
+            $stmt->bindParam('title', $title);
+            $stmt->bindParam('subtitle', $subtitle);
+            $stmt->bindParam('content', $content);
+            $stmt->bindParam('img', $img);
+            $stmt->bindParam('editor', $user, PDO::PARAM_INT);
+            $stmt->bindParam('category_id', $category_id, PDO::PARAM_INT);
+            $stmt->bindParam('id', $id, PDO::PARAM_INT);
+
+            $result = $stmt->execute();
+
+            // Editar palabras clave
+            foreach ($keywords as $keyword) {
+                if (!$result) throw new Exception($db->errorInfo());
+
+                // Borrar las actuales
+                $stmt = $db->prepare("DELETE FROM table_keyword
+                                      WHERE news_id = :id");
+                $stmt->bindParam('id', $id, PDO::PARAM_INT);
+                $result = $stmt->execute();
+
+                // Insertar las nuevas
+                $stmt = $db->prepare("INSERT INTO table_keyword (news_id, name)
+                                  VALUES (:id, :name)");
+                $stmt->bindParam('id', $id, PDO::PARAM_INT);
+                $stmt->bindParam('name', $keyword);
+                $result = $stmt->execute();
+            }
+            $db->commit();
+            return true;
+        } catch (Exception $e) {
+            $db->rollBack();
+            $this->setError($e->getMessage());
+        }
+    }
+
     public function listAll() {
         $db = $this->getConn();
         $list = array();
@@ -99,36 +157,6 @@ class NewsDao {
             $row = $stmt->fetch();
             $news->fill($db, $row);
             return $news;
-        } catch (Exception $e) {
-            $this->setError($e->getMessage());
-        }
-    }
-
-    public function edit($id, $title, $subtitle, $content, $img, $category_id, $keywords) {
-        $db = $this->getConn();
-        $db->beginTransaction();
-
-        try {
-            $stmt = $db->prepare("UPDATE table_news
-                                  SET title = :title,
-                                      subtitle = :subtitle,
-                                      date_modified = CURRENT_DATE,
-                                      content = :content,
-                                      img = :img,
-                                      category_id = :category_id
-                                  WHERE id = :id");
-            $stmt->bindParam();
-
-//            // Insertar palabras clave
-//            foreach ($keywords as $keyword) {
-//                if (!$result) throw new \Exception($db->errorInfo());
-//
-//                $stmt = $db->prepare("INSERT INTO table_keyword (news_id, name)
-//                                  VALUES (:id, :name)");
-//                $stmt->bindParam('id', $id, PDO::PARAM_INT);
-//                $stmt->bindParam('name', $keyword);
-//                $result = $stmt->execute();
-//            }
         } catch (Exception $e) {
             $this->setError($e->getMessage());
         }
