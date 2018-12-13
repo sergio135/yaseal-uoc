@@ -18,7 +18,7 @@
                 <h4 class="inline enable" id="login-button">Login</h4>
                 <h4 class="inline" id="register-button">Register</h4>
                 <div class="form login" id="login-area">
-                    <form id="login-form" action="/yaseal-local/api/login" method="post">
+                    <form id="login-form" action="/api/login" method="post">
                         <input type="text" name="email" placeholder="Email" <?php if (isset($email)) echo "value=$email"?>>
                         <input type="password" name="password" placeholder="Contraseña">
                         <button type="submit" class="button">Entrar</button>
@@ -27,7 +27,7 @@
                     </form>
                 </div>
                 <div class="form register" id="register-area">
-                    <form id="register-form" action="/yaseal-local/api/register" method="post">
+                    <form id="register-form" action="/api/register" method="post">
                         <input type="text" name="name" placeholder="Nombre y Apellidos" <?php if (isset($name)) echo "value=$name"?>>
                         <input type="text" name="email" placeholder="Email" <?php if (isset($email)) echo "value=$email"?>>
                         <input type="password" name="password" placeholder="Contraseña">

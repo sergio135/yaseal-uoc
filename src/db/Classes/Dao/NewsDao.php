@@ -145,6 +145,32 @@ class NewsDao {
         }
     }
 
+    public function listOwnNews($id) {
+        $db = $this->getConn();
+        $list = array();
+        try {
+            $sql = "SELECT n.*, GROUP_CONCAT(k.name SEPARATOR ', ') 'keywords' FROM table_news n, table_keyword k, table_user u
+                    WHERE n.id = k.news_id
+                    AND n.autor = u.id
+                    AND u.id = :id
+                    GROUP BY n.id
+                    ORDER BY n.date_created DESC";
+            $stmt = $db->prepare($sql);
+            $stmt->execute(['id' => $id]);
+            $rows = $stmt->fetchAll();
+
+            foreach ($rows as $row) {
+                $news = new News();
+                $news->fill($db, $row);
+                array_push($list, $news);
+            }
+
+            return $list;
+        } catch (Exception $e) {
+            $this->setError($e->getMessage());
+        }
+    }
+
     public function getById($id) {
         $db = $this->getConn();
         $news = new News();

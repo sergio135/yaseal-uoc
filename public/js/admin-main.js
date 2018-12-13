@@ -50,7 +50,7 @@ const yaseal = {
     domain: window.location.origin
   },
   api: {
-    login: `${window.location.origin}/yaseal-local/api/login`,
+    login: `${window.location.origin}/api/login`,
     register: `${window.location.origin}/api/register`
   }
 };

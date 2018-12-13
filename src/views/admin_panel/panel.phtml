@@ -22,10 +22,10 @@
     </div>
     <div class="list">
 <?php
-if (isset($news)) {
+if (isset($news) && $news) {
     foreach ($news as $item) {
         echo "<div class='card'>
-                <div class='card-content'><a href='/yaseal-local/admin_panel/edit/{$item->getId()}'>{$item->getTitle()}</a></div>
+                <div class='card-content'><a href='/admin_panel/edit/{$item->getId()}'>{$item->getTitle()}</a></div>
                 <div class='card-content'>{$categories[$item->getCategory()]}</div>
                 <div class='card-content'>{$item->getDateCreated()}</div>
                 <div class='card-content'>{$item->getAutor()->getName()}</div>
@@ -33,7 +33,7 @@ if (isset($news)) {
               </div>";
     }
 } else {
-    echo "<div>No hay nada que mostrar</div>";
+    echo "<div class='card'><div class='card-content'>No hay nada que mostrar</div></div>";
 }
 ?>
     </div>

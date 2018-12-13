@@ -18,7 +18,7 @@ $app->post('/api/register', function(Request $req, Response $res, array $args) {
          return;
      }
      $_SESSION['user'] = $result;
-     return $res->withRedirect('/yaseal-local/admin_panel/panel', 301);
+     return $res->withRedirect('/admin_panel/panel', 301);
 
     ///////////////////////////////////////////////// 
     // Aqui solo hay que devolver una respuesta afirmativa o un error, y ya se controla la redireccion desde el frontEnd con JS

@@ -19,7 +19,7 @@ $app->post('/api/login', function (Request $req, Response $res, array $args) {
         return;
     }
     $_SESSION['user'] = $result;
-    return $res->withRedirect('/yaseal-local/admin_panel/panel', 301);
+    return $res->withRedirect('/admin_panel/panel', 301);
 
 
     /////////////////////////////////////////////////
