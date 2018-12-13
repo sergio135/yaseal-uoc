@@ -310,6 +310,11 @@ header.admin-header .logout {
   flex-wrap: nowrap;
   align-items: center;
 }
+.list .card:first-of-type {
+  height: 40px;
+  background-color: #28333d;
+  color: #f8f8f8;
+}
 .list .card > .card-content {
   width: 25%;
   padding: 16px;

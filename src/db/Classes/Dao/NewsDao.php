@@ -121,6 +121,27 @@ class NewsDao {
         }
     }
 
+    public function publish($id) {
+        $db = $this->getConn();
+        $db->beginTransaction();
+        $role = $_SESSION['user']->getRole();
+        if ($role == 'autor') throw new Exception('No tiene permisos para publicar noticias');
+        try {
+            // Modificar noticia
+            $stmt = $db->prepare("UPDATE table_news
+                                  SET date_published = CURRENT_DATE
+                                  WHERE id = :id");
+            $stmt->bindParam('id', $id, PDO::PARAM_INT);
+            $result = $stmt->execute();
+            if (!$result) throw new Exception('Ha ocurrido algo. Intentelo de nuevo');
+            $db->commit();
+            return true;
+        } catch (Exception $e) {
+            $db->rollBack();
+            $this->setError($e->getMessage());
+        }
+    }
+
     public function listAll() {
         $db = $this->getConn();
         $list = array();
@@ -128,6 +149,31 @@ class NewsDao {
             $sql = "SELECT n.*, GROUP_CONCAT(k.name SEPARATOR ', ') 'keywords'
                 FROM table_news n,table_keyword k
                 WHERE n.id = k.news_id
+                GROUP BY n.id
+                ORDER BY n.date_created DESC";
+
+            $stmt = $db->query($sql)->fetchAll();
+
+            foreach ($stmt as $row) {
+                $news = new News();
+                $news->fill($db, $row);
+                array_push($list, $news);
+            }
+
+            return $list;
+        } catch (Exception $e) {
+            $this->setError($e->getMessage());
+        }
+    }
+
+    public function listAllPublished() {
+        $db = $this->getConn();
+        $list = array();
+        try {
+            $sql = "SELECT n.*, GROUP_CONCAT(k.name SEPARATOR ', ') 'keywords'
+                FROM table_news n,table_keyword k
+                WHERE n.id = k.news_id
+                AND n.date_published IS NOT NULL
                 GROUP BY n.id
                 ORDER BY n.date_created DESC";
 
@@ -197,6 +243,7 @@ class NewsDao {
                 FROM table_news n,table_keyword k
                 WHERE n.id = k.news_id
                 AND n.category_id = $categoryId
+                AND n.date_published IS NOT NULL
                 GROUP BY n.id
                 ORDER BY n.date_created DESC";
 
