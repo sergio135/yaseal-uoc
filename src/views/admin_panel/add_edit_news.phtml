@@ -46,7 +46,7 @@ if (isset($action) && $action == "edit") {
 } else {
     echo "<button type='submit'>Añadir</button>";
 }
-if ($user->getRole() != 'autor' && !$date_published) {
+if ($user->getRole() != 'autor' && !isset($date_published)) {
     echo "<button id='publish' type='button'>Publicar</button>";
 }
 ?>

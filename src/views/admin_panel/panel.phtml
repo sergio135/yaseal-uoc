@@ -24,6 +24,12 @@
             <span>Buscar</span>
         </div>
     </div>
+    <?php
+    if (isset($notification)) {
+        $cssClas = $notification['type'];
+        echo "<div class='$cssClas'>{$notification['msg']}</div>";
+    }
+    ?>
     <div class="list">
         <div class='card titles'>
             <div class='card-content'>Título</div>
@@ -51,14 +57,6 @@ if (isset($news) && $news) {
 ?>
     </div>
 <br>
-
-<?php
-    if (isset($notification)) {
-        $cssClas = $notification['type'];
-        echo "<div class='$cssClas'>{$notification['msg']}</div>";
-    }
-    ?>
-
 <br>
     </section>
     <aside class="sidebar-rigth"></aside>
