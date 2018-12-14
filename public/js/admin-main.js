@@ -10,36 +10,7 @@ const renderArticles = tag => {
     if (res.error) {
       throw new Error(res.error);
     } else {
-      return res.articles.map(
-        article => `
-        <div class="card">
-            <div class="card__img">
-                <img src="./public/images/world.png">
-            </div>
-            <div class="card__content">
-                <div class="row between">
-                    <div class="header-icon">
-                        <img src="./public/images/${article.image}" />
-                    </div>
-                    <div class="header-title">
-                        <h3>${article.title}</h3>
-                        <h6>${article.subTitle}</h6>
-                    </div>
-                    <div class="header-time">
-                        <span>${article.create}</span>
-                    </div>
-                </div>
-                <div>
-                    <p>${article.description}</p>
-                </div>
-                <div class="row between">
-                    <span class="button red outline" onClick="">Eliminar</span>
-                    <span class="button yellow outline" onClick="">Ver más!</span>
-                </div>
-            </div>
-        </div>
-      `
-      );
+      return res.articles.map(article => article);
     }
   });
 };
@@ -78,31 +49,42 @@ window.onload = () => {
 
   const loginForm = document.querySelector("#login-form");
   const registerForm = document.querySelector("#register-form");
-  // if (loginForm && registerForm) {
-  //   loginForm.addEventListener("submit", event => {
-  //     event.preventDefault();
-  //     const { email, password } = event.target.children;
-  //     axios
-  //       .post(yaseal.api.login, { email, password })
-  //       .then(function(res) {
-  //         document.write(res.data);
-  //       })
-  //       .catch(function(err) {
-  //         console.error(err);
-  //       });
-  //   });
-  //
-  //   registerForm.addEventListener("submit", event => {
-  //     event.preventDefault();
-  //     const { email, password } = event.target.children;
-  //     axios
-  //       .post(yaseal.api.register, { email, password })
-  //       .then(function(res) {
-  //         console.log(res);
-  //       })
-  //       .catch(function(err) {
-  //         console.error(err);
-  //       });
-  //   });
-  // }
+  const errorsBox = document.querySelector("#errors-form");
+  if (loginForm && registerForm) {
+    loginForm.addEventListener("submit", event => {
+      event.preventDefault();
+      const { email, password } = event.target.children;
+      axios
+        .post(yaseal.api.login, {
+          email: email.value,
+          password: password.value
+        })
+        .then(function(res) {
+          window.location.href = `${window.location.origin}/admin_panel/panel`;
+        })
+        .catch(function(err) {
+          console.error(err.response.data);
+          errorsBox.innerHTML = err.response.data.error.msg;
+        });
+    });
+
+    registerForm.addEventListener("submit", event => {
+      event.preventDefault();
+      const { email, password, role, name } = event.target.children;
+      axios
+        .post(yaseal.api.register, {
+          name: name.value,
+          email: email.value,
+          password: password.value,
+          role: role.value
+        })
+        .then(function(res) {
+          window.location.href = `${window.location.origin}/admin_panel/panel`;
+        })
+        .catch(function(err) {
+          console.error(err.response.data);
+          errorsBox.innerHTML = err.response.data.error.msg;
+        });
+    });
+  }
 };

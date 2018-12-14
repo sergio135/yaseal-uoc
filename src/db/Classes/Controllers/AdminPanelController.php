@@ -16,9 +16,9 @@ class AdminPanelController {
         $this->container = $container;
     }
 
-    public function login($request, $response, $args) {
-        $email = trim($request->getParam('email'));
-        $pass = trim($request->getParam('password'));
+    public function login($dataForm) {
+        $email = $dataForm['email'];
+        $pass = $dataForm['password'];
 
         $userDao = new UserDao($this->container['db']);
 
@@ -39,11 +39,11 @@ class AdminPanelController {
         }
     }
 
-    public function register($request, $response, $args) {
-        $name = trim($request->getParam('name'));
-        $email = trim($request->getParam('email'));
-        $pass = trim($request->getParam('password'));
-        $role = trim($request->getParam('role'));
+    public function register($dataForm) {
+        $name = $dataForm['name'];
+        $email = $dataForm['email'];
+        $pass = $dataForm['password'];
+        $role = $dataForm['role'];
 
         if (empty($name) || empty($email) || empty($pass) || empty($role)) {
             // Si no se rellena alguno de los campos del formulario se devuelve error
@@ -57,7 +57,7 @@ class AdminPanelController {
             $userDao = new UserDao($this->container['db']);
             $isInserted = $userDao->insertNewUser($name, $email, $pass, $role);
             if ($isInserted) {
-                return $this->login($request, $response, $args);
+                return $this->login($dataForm);
             } else {
                 return array("notification" => array("type" => "error",
                                                      "msg" => $userDao->getError()),

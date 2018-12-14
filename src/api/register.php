@@ -7,38 +7,16 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 $app->post('/api/register', function(Request $req, Response $res, array $args) {
 
-    $dataForm = json_decode($req->getBody());
+    $dataForm = json_decode($req->getBody(), true);
    
-
-
-     $adminPanel = new AdminPanelController($this);
-     $result = $adminPanel->register($req, $res, $args);
-     if (array_key_exists("notification", $result)) {
-         $this->view->render($res, '/admin_panel/auth.phtml', $result);
-         return;
-     }
-     $_SESSION['user'] = $result;
-     return $res->withRedirect('/admin_panel/panel', 301);
-
-    ///////////////////////////////////////////////// 
-    // Aqui solo hay que devolver una respuesta afirmativa o un error, y ya se controla la redireccion desde el frontEnd con JS
-    ///////////////////////////////////////////////// 
-
-//    $statusCode = 200;
-//    // la propiedad Error solo viene si hay algun error, si no, se envian los datos en la propiedad data
-//    $data = [
-//        'error' => [
-//            'messagge' => 'El usuario no existe'
-//        ],
-//        'data' => [
-//            'id' => 'a6s7d8a6sd',
-//            'name' => 'Bob Jason',
-//            'email' => 'asdasd@gmail.com'
-//        ]
-//    ];
-//
-//    // devolver siempre el objeto $response
-//    return $res->withJson($data, $statusCode);
+    $adminPanel = new AdminPanelController($this);
+     $result = $adminPanel->register($dataForm);
+    
+    if (array_key_exists("notification", $result)) {
+        return $res->withJson(['error' => $result['notification']], 500);  
+    }
+    $_SESSION['user'] = $result;
+    return $res->withJson($result, 200);  
 });
 
 ?>
