@@ -19,6 +19,7 @@ $app->post('/api/login', function (Request $req, Response $res, array $args) {
         return $res->withJson(['error' => $result['notification']], 500);  
     }
     $_SESSION['user'] = $result;
+
     return $res->withJson($result, 200);  
 });
 

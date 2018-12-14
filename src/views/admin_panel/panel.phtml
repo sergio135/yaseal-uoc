@@ -11,7 +11,11 @@
         <div class="title">
             <h1>Articulos</h1>
             <div class="area-button">
-                <a class="button outline red" href="add">Añadir Noticia</a>
+                <?php
+                if ($_SESSION['user']->getRole() != 'editor') {
+                echo "<a class='button outline red' href='add'>Añadir Noticia</a>";
+                }
+                ?>
                 <a class="button outline red">Botones</a>
             </div>
         </div>
@@ -21,19 +25,28 @@
         </div>
     </div>
     <div class="list">
+        <div class='card titles'>
+            <div class='card-content'>Título</div>
+            <div class='card-content'>Categoría</div>
+            <div class='card-content'>Fecha de creación</div>
+            <div class='card-content'>Fecha de publicación</div>
+            <div class='card-content'>Autor</div>
+            <div class='clear'></div>
+        </div>
 <?php
-if (isset($news)) {
+if (isset($news) && $news) {
     foreach ($news as $item) {
         echo "<div class='card'>
-                <div class='card-content'><a href='/yaseal-local/admin_panel/edit/{$item->getId()}'>{$item->getTitle()}</a></div>
+                <div class='card-content'><a href='/admin_panel/edit/{$item->getId()}'>{$item->getTitle()}</a></div>
                 <div class='card-content'>{$categories[$item->getCategory()]}</div>
                 <div class='card-content'>{$item->getDateCreated()}</div>
+                <div class='card-content'>{$item->getDatePublished()}</div>
                 <div class='card-content'>{$item->getAutor()->getName()}</div>
                 <div class='clear'></div>
               </div>";
     }
 } else {
-    echo "<div>No hay nada que mostrar</div>";
+    echo "<div class='card'><div class='card-content'>No hay nada que mostrar</div></div>";
 }
 ?>
     </div>
