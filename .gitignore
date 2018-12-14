@@ -4,5 +4,9 @@
 
 # Directorios
 /vendor/
+/.idea/
+/.gitignore
+/public/img/
 
 # Archivos
+yaseal.zip
