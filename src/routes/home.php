@@ -33,7 +33,7 @@ $app->get('/', function (Request $request, Response $response, array $args) {
     $newsController = new NewsController($this);
 
     $_SESSION['news'] = array(
-        '' => array_slice($newsController->listAllNews(), 0, 3),
+        '' => array_slice($newsController->listAllPublishedNews(), 0, 3),
         'Internacional' => array_slice($newsController->getNewsByCategoryId(1), 0, 3),
         'Local' => array_slice($newsController->getNewsByCategoryId(2), 0, 3),
         'Deportes' => array_slice($newsController->getNewsByCategoryId(3), 0, 3),

@@ -80,6 +80,7 @@ class NewsController {
             "subtitle" => $news->getSubtitle(),
             "date_created" => $news->getDateCreated(),
             "date_modified" => $news->getDateModified(),
+            "date_published" => $news->getDatePublished(),
             "content" => $news->getContent(),
             "img" => $news->getImg(),
             "autor" => $news->getAutor(),
@@ -129,6 +130,26 @@ class NewsController {
         }
     }
 
+    public function publishNews($id) {
+        $newsDao = new NewsDao($this->container['db']);
+        $isEdited = $newsDao->publish($id);
+
+        if ($isEdited) {
+            return true;
+        } else {
+            $news = $newsDao->getById($id);
+            $args = array("notification" => array("type" => "error",
+                "msg" => $newsDao->getError()),
+                "title" => $news->getTitle(),
+                "subtitle" => $news->getSubtitle(),
+                "content" => $news->getContent(),
+                "img" => $news->getImg(),
+                "category_id" => $news->getCategory(),
+                "keywords" => $news->getKeywords());
+            return $args;
+        }
+    }
+
     function generateFileName(UploadedFile $uploadedFile) {
         $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
         $basename = bin2hex(random_bytes(8));
@@ -151,6 +172,17 @@ class NewsController {
     public function listAllNews() {
         $newsDao = new NewsDao($this->container['db']);
         $news = $newsDao->listAll();
+
+        if ($newsDao->getError()) {
+            return $newsDao->getError();
+        }
+
+        return $news;
+    }
+
+    public function listAllPublishedNews() {
+        $newsDao = new NewsDao($this->container['db']);
+        $news = $newsDao->listAllPublished();
 
         if ($newsDao->getError()) {
             return $newsDao->getError();

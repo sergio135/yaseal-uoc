@@ -70,7 +70,12 @@ class AdminPanelController {
 
     public function listAllNews($req, $res, $args) {
         $newsDao = new NewsDao($this->container['db']);
-        $news = $newsDao->listAll();
+        if ($_SESSION['user']->getRole() == 'autor') {
+            // Si es periodista solo se listaran las propias
+            $news = $newsDao->listOwnNews($_SESSION['user']->getId());
+        } else {
+            $news = $newsDao->listAll();
+        }
 
         if ($newsDao->getError()) {
             return $newsDao->getError();

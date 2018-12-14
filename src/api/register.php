@@ -12,7 +12,6 @@ $app->post('/api/register', function(Request $req, Response $res, array $args) {
     $adminPanel = new AdminPanelController($this);
      $result = $adminPanel->register($dataForm);
     
-    
     if (array_key_exists("notification", $result)) {
         return $res->withJson(['error' => $result['notification']], 500);  
     }

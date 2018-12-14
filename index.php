@@ -9,8 +9,9 @@ $config['displayErrorDetails'] = true;
 $config['addContentLengthHeader'] = false;
 
 $config['db']['host']   = 'localhost';
-$config['db']['user']   = 'root';
-$config['db']['pass']   = '';
+//$config['db']['host']   = 'yaseal.cwfvpzo0pnrq.us-east-2.rds.amazonaws.com';
+$config['db']['user']   = 'yaseal';
+$config['db']['pass']   = 'admin123';
 $config['db']['dbname'] = 'p7_news_app';
 
 $app = new \Slim\App(['settings' => $config]);
