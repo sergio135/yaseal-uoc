@@ -423,7 +423,7 @@ footer.admin-footer p {
 
 .panel section.content .information .card.grid {
   display: grid;
-  grid-template-columns: 60px 1fr 90px 90px 100px 40px;
+  grid-template-columns: 60px 1fr 110px 90px 50px 30px;
   justify-items: stretch;
   align-items: stretch;
   justify-content: stretch;
