@@ -479,4 +479,8 @@ footer.admin-footer p {
 .panel section.content .information .links-content i {
   font-size: 30px;
   color: #ebc34d;
+  transition: 0.2s;
+}
+.panel section.content .information .links-content i:hover {
+  color: #ffdb70;
 }
