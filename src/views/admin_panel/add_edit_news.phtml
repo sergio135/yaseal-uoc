@@ -77,7 +77,7 @@ if (!isset($action) && $user->getRole() == 'editor') {
         const form = document.newsInfo;
         if (publishButton && form) {
             publishButton.addEventListener("click", event => {
-                form.action = "http://yaseal/admin_panel/publish/"+form.action.split('/').pop();
+                form.action = `${window.location.origin}/admin_panel/publish/${form.action.split('/').pop()}`;
                     form.submit();
                 });
             }
