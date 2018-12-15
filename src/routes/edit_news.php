@@ -34,7 +34,7 @@ $app->post('/admin_panel/edit/{id}', function (Request $req, Response $res, arra
     }
     $_SESSION['notification'] = array("type" => "success",
         "msg" => "Ha modificado correctamente una nueva publicación");
-    return $res->withRedirect("/admin_panel/edit/{$newsId}", 301);
+    return $res->withRedirect("/admin_panel/panel", 301);
 });
 
 ?>

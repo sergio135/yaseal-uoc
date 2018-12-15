@@ -56,7 +56,7 @@ if (!isset($action) && $user->getRole() == 'editor') {
                 } else {
                     echo "<button class='button blue margin-right' type='submit'>Añadir</button>";
                 }
-                if ($user->getRole() != 'autor' && !$date_published) {
+                if ($user->getRole() != 'autor' && !isset($date_published)) {
                     echo "<button class='button red' id='publish' type='button'>Publicar</button>";
                 }?>
             </form>
