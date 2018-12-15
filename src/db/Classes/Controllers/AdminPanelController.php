@@ -88,7 +88,10 @@ class AdminPanelController {
         $id = $_SESSION['user']->getId();
         $name = $req->getParam('name');
         $email = $req->getParam('email');
-        $pass = password_hash($req->getParam('password'), PASSWORD_DEFAULT);
+        $pass = null;
+        if (!empty($req->getParam('password'))) {
+            $pass = password_hash($req->getParam('password'), PASSWORD_DEFAULT);
+        }
         $userDao = new UserDao($this->container['db']);
         $result = $userDao->updateUser($id, $name, $email, $pass);
         if ($userDao->getError()) {

@@ -87,19 +87,21 @@ class UserDao {
         return $result;
     }
 
-    public function updateUser($id, $name, $email, $pass) {
+    public function updateUser($id, $name, $email, $pass = null) {
         $db = $this->getConn();
         $db->beginTransaction();
         try {
-            $stmt = $db->prepare("UPDATE table_user 
-                                  SET name = :name,
-                                      email = :email,
-                                      password = :password
-                                  WHERE id = :id");
+            $sql = "UPDATE table_user 
+                    SET name = :name,
+                        email = :email";
+            if ($pass) $sql .= ", password = :password";
+            $sql .= " WHERE id = :id";
+            $stmt = $db->prepare($sql);
             $stmt->bindParam('name', $name);
             $stmt->bindParam('email', $email);
-            $stmt->bindParam('password', $pass);
+            if ($pass) $stmt->bindParam('password', $pass);
             $stmt->bindParam('id', $id, PDO::PARAM_INT);
+
             $result = $stmt->execute();
             if ($result) {
                 $db->commit();
@@ -107,6 +109,7 @@ class UserDao {
             return $result;
         } catch (Exception $e) {
             $db->rollBack();
+            var_dump($this->getError()); die();
             $this->setError($e->getMessage());
         }
     }
