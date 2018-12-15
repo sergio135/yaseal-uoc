@@ -26,12 +26,16 @@
             <div>Autor</div>
             <div>Título</div>
             <div>Categoría</div>
+            <div>Creado</div>
             <div>Status</div>
-            <div>Fecha</div>
         </div>
 
         <?php if (isset($news) && $news) {
-            foreach ($news as $item) { ?>
+            foreach ($news as $item) {
+                $isPublished = $item->getDatePublished() == null ? '<i class="fas fa-file"></i>' : '<i class="fas fa-check"></i>';
+                $title = $item->getDatePublished() == null ? 'Borrador' : 'Publicado';
+
+                ?>
                 <div class='card grid'>
                     <div class='autor-content'>
                         <i class="far fa-user-circle"></i>
@@ -39,8 +43,8 @@
                     </div>
                     <div class='title-content'><?php echo $item->getTitle() ?></a></div>
                     <div class='tag-content'><span><?php echo $categories[$item->getCategory()] ?></span></div>
-                    <div class='status-content'><span><?php echo $item->getDateCreated() ?></span></div>
-                    <div class='date-content'><?php echo $item->getDatePublished() ?></div>
+                    <div class='date-content'><?php echo $item->getDateCreated() ?></div>
+                    <div class='status-content'><span title="<?php echo $title ?>"><?php echo $isPublished ?></span></div>
                     <div class='links-content'>
                         <a href='/admin_panel/edit/<?php echo $item->getId() ?>'><i class="fas fa-pen-square"></i></a>
                     </div>
