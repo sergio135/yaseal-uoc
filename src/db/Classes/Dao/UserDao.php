@@ -86,4 +86,28 @@ class UserDao {
         $result = $stmt->execute(['name' => $name, 'email' => $email, 'password' => password_hash($pass, PASSWORD_DEFAULT), 'role' => $role]);
         return $result;
     }
+
+    public function updateUser($id, $name, $email, $pass) {
+        $db = $this->getConn();
+        $db->beginTransaction();
+        try {
+            $stmt = $db->prepare("UPDATE table_user 
+                                  SET name = :name,
+                                      email = :email,
+                                      password = :password
+                                  WHERE id = :id");
+            $stmt->bindParam('name', $name);
+            $stmt->bindParam('email', $email);
+            $stmt->bindParam('password', $pass);
+            $stmt->bindParam('id', $id, PDO::PARAM_INT);
+            $result = $stmt->execute();
+            if ($result) {
+                $db->commit();
+            }
+            return $result;
+        } catch (Exception $e) {
+            $db->rollBack();
+            $this->setError($e->getMessage());
+        }
+    }
 }

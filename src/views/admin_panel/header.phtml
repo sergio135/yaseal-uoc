@@ -11,7 +11,7 @@
     <div class="area-profile">
         <div class="user column">
             <i class="far fa-user-circle"></i>
-            <span><?php echo $user->getName() ?></span>
+            <span><?php echo $_SESSION['user']->getName() ?></span>
         </div>
         <div class="logout">
             <a href="/logout">

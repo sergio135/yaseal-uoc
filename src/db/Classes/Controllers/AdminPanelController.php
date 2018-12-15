@@ -83,4 +83,18 @@ class AdminPanelController {
 
         return $news;
     }
+
+    public function updateUser($req, $res, $args) {
+        $id = $_SESSION['user']->getId();
+        $name = $req->getParam('name');
+        $email = $req->getParam('email');
+        $pass = password_hash($req->getParam('password'), PASSWORD_DEFAULT);
+        $userDao = new UserDao($this->container['db']);
+        $result = $userDao->updateUser($id, $name, $email, $pass);
+        if ($userDao->getError()) {
+            return $userDao->getError();
+        }
+        $_SESSION['user'] = UserDao::getbyId($userDao->getConn(), $id);
+        return $result;
+    }
 }
