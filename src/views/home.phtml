@@ -29,7 +29,7 @@
       echo  " <section class='cards'>";
       foreach($news as $new) {
           echo "<article>
-                  <a href=''> <img class='article-img' src={$new->getImg()} alt=''/></a>
+                  <a href=''> <img class='article-img' src='/public/img/news/{$new->getImg()}' alt=''/></a>
                   <a href=''> <h3 class='article-title'>{$new->getTitle()}</h3></a>
                     <p>{$new->getContent()} </p>
                 </article> "; 
