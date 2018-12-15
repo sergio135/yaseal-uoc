@@ -11,5 +11,6 @@ require __DIR__ . '/add_news.php';
 require __DIR__ . '/edit_news.php';
 require __DIR__ . '/publish_news.php';
 require __DIR__ . '/noticia.php';
+require __DIR__ . '/profile.php';
 
 ?>

@@ -1,0 +1,49 @@
+<!------------------------------------------------------------------------
+-- Plantilla HTML para la página de Perfil del admin panel --
+------------------------------------------------------------------------->
+<?php /* incluimos la plantilla goblal */ include __DIR__ . '/layout.phtml' ?>
+<?php /* incluimos la cabecera */ include __DIR__ . '/header.phtml' ?>
+
+<main class="panel">
+<?php /* incluimos la cabecera */ include __DIR__ . '/left_aside.phtml' ?>
+<section class="content">
+    <div class="header">
+        <div class="title">
+            <h1>Perfil</h1>
+            <div class="area-button">
+                <a class='button outline blue round' href='#'>Guardar</a>
+            </div>
+        </div>
+        <div class="filters"></div>
+    </div>
+    
+<?php
+if (isset($news) && $news) {
+    foreach ($news as $item) {
+        echo "<div class='card'>
+                <div class='card-content'><a href='/admin_panel/edit/{$item->getId()}'>{$item->getTitle()}</a></div>
+                <div class='card-content'>{$categories[$item->getCategory()]}</div>
+                <div class='card-content'>{$item->getDateCreated()}</div>
+                <div class='card-content'>{$item->getDatePublished()}</div>
+                <div class='card-content'>{$item->getAutor()->getName()}</div>
+                <div class='clear'></div>
+              </div>";
+    }
+} else {
+    echo "<div class='card'><div class='card-content'>No hay nada que mostrar</div></div>";
+}
+?>
+</div>
+
+<?php if (isset($notification)) {
+    $cssClas = $notification['type']; ?>
+    <div class='<?php $cssClas ?>'>
+        <?php echo $notification['msg'] ?>
+    </div>
+<?php } ?>
+
+</section>
+<?php /* incluimos el sidebar */ include __DIR__ . '/right_aside.phtml' ?>
+</main>
+
+<?php /* incluimos el footer */ include __DIR__ . '/footer.phtml' ?>

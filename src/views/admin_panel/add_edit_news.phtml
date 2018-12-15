@@ -1,8 +1,6 @@
 <!------------------------------------------------------------------------
--- Plantilla HTML para la página de portada del panel de administración --
+-- Plantilla HTML para la página de añadir entrada del admin panel  --
 ------------------------------------------------------------------------->
-<?php /* incluimos la plantilla goblal */ include __DIR__ . '/../layout.phtml' ?>
-<?php /* incluimos la cabecera */ include __DIR__ . '/../header.phtml';?>
 <?php
 $user = isset($_SESSION['user']) ? $_SESSION['user'] : null;
 if(isset($action) && $user->getRole() == 'autor' && $autor != $user){
@@ -15,59 +13,76 @@ if (!isset($action) && $user->getRole() == 'editor') {
     header("HTTP/1.1 401 Unauthorized");
     exit('<div>No tiene permisos para añadir noticias</div>');
 }
-
 ?>
-<h1>Añadir noticia</h1>
 
-<form action="" method="post" name="newsInfo" enctype="multipart/form-data">
-    <input type="text" name="title" placeholder="Título" value="<?php if (isset($title)) echo $title?>">
-    <input type="text" name="subtitle" placeholder="subtítulo" value="<?php if (isset($subtitle)) echo $subtitle?>">
-    <select name="category_id">
+<?php /* incluimos la plantilla goblal */ include __DIR__ . '/layout.phtml' ?>
+<?php /* incluimos la cabecera */ include __DIR__ . '/header.phtml' ?>
+
+<main class="panel">
+<?php /* incluimos el sidebar */ include __DIR__ . '/left_aside.phtml' ?>
+<section class="content">
+    <div class="header">
+        <div class="title">
+            <h1>Añadir noticia</h1>
+            <div class="area-button"></div>
+        </div>
+        <div class="filters"></div>
+    </div>
+
+    <div class="information column">
+
+        <div class='card'>
+            <form action="" method="post" name="newsInfo" enctype="multipart/form-data" class="gray">
+                <input type="text" name="title" placeholder="Título" value="<?php if (isset($title)) echo $title?>">
+                <input type="text" name="subtitle" placeholder="subtítulo" value="<?php if (isset($subtitle)) echo $subtitle?>">
+                <select name="category_id">
+                <?php if (isset($categories)) {
+                    foreach ($categories as $id => $name) {
+                        $selected = (isset($category_id) && $category_id == $id) ? 'selected' : '';
+                        echo "<option value='{$id}' {$selected}>{$name}</option>";
+                    }
+                } ?>
+                </select>
+                <?php
+                if (isset($img) && $img) {
+                    echo "<img src='/public/img/news/$img' height='200' width='200'/>";
+                } ?>
+                <input type='file' name='img'>
+                <textarea name="content"><?php if (isset($content)) echo $content?></textarea>
+                <input type="text" name="keywords" placeholder="Ej: keyword, list, example" value="<?php if (isset($keywords)) echo $keywords?>">
+                <?php
+                if (isset($action) && $action == "edit") {
+                    echo "<button class='button blue' type='submit'>Editar</button>";
+                } else {
+                    echo "<button class='button blue' type='submit'>Añadir</button>";
+                }
+                if ($user->getRole() != 'autor' && !$date_published) {
+                    echo "<button class='button red' id='publish' type='button'>Publicar</button>";
+                }?>
+            </form>
         <?php
-        if (isset($categories)) {
-            foreach ($categories as $id => $name) {
-                $selected = (isset($category_id) && $category_id == $id) ? 'selected' : '';
-                echo "<option value='{$id}' {$selected}>{$name}</option>";
-            }
+        if (isset($notification)) {
+            echo "<div>{$notification['msg']}</div>";
         }
         ?>
-    </select>
-<?php
-if (isset($img) && $img) {
-    echo "<img src='/public/img/news/$img' height='200' width='200'/>";
-}
-?>
-    <input type='file' name='img'>
-    <textarea name="content"><?php if (isset($content)) echo $content?></textarea>
-    <input type="text" name="keywords" placeholder="Ej: keyword, list, example" value="<?php if (isset($keywords)) echo $keywords?>">
-<?php
-if (isset($action) && $action == "edit") {
-    echo "<button type='submit'>Editar</button>";
-} else {
-    echo "<button type='submit'>Añadir</button>";
-}
-if ($user->getRole() != 'autor' && !$date_published) {
-    echo "<button id='publish' type='button'>Publicar</button>";
-}
-?>
-</form>
-<?php
-if (isset($notification)) {
-    echo "<div>{$notification['msg']}</div>";
-}
-?>
+        </div>
+
+    </div>
+</section>
+<?php /* incluimos el sidebar */ include __DIR__ . '/right_aside.phtml' ?>
 
 <script>
-window.onload = () => {
-    const publishButton = document.querySelector("#publish");
-    const form = document.newsInfo;
-    if (publishButton && form) {
-        publishButton.addEventListener("click", event => {
-            form.action = "http://yaseal/admin_panel/publish/"+form.action.split('/').pop();
-            form.submit();
-        });
-    }
-};
-</script>
+    window.onload = () => {
+        const publishButton = document.querySelector("#publish");
+        const form = document.newsInfo;
+        if (publishButton && form) {
+            publishButton.addEventListener("click", event => {
+                form.action = "http://yaseal/admin_panel/publish/"+form.action.split('/').pop();
+                    form.submit();
+                });
+            }
+        };
+        </script>
 
+</main>
 <?php /* incluimos el footer */ include __DIR__ . '/../footer.phtml' ?>

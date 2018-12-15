@@ -1,67 +1,76 @@
 <!------------------------------------------------------------------------
--- Plantilla HTML para la página de portada del panel de administración --
+-- Plantilla HTML para la página de portada del admin panel --
 ------------------------------------------------------------------------->
 <?php /* incluimos la plantilla goblal */ include __DIR__ . '/layout.phtml' ?>
 <?php /* incluimos la cabecera */ include __DIR__ . '/header.phtml' ?>
 
 <main class="panel">
-<aside class="sidebar-left"></aside>
+<?php /* incluimos el sidebar */ include __DIR__ . '/left_aside.phtml' ?>
 <section class="content">
     <div class="header">
         <div class="title">
-            <h1>Articulos</h1>
+            <h1>Artículos</h1>
             <div class="area-button">
-                <?php
-                if ($_SESSION['user']->getRole() != 'editor') {
-                echo "<a class='button outline red' href='add'>Añadir Noticia</a>";
-                }
-                ?>
-                <a class="button outline red">Botones</a>
+                <?php if ($_SESSION['user']->getRole() != 'editor') { ?>
+                <a class='button outline blue round' href='add'>Añadir Noticia</a>
+                <?php } ?>
             </div>
         </div>
         <div class="filters">
-            <span>Ordenar por</span>
-            <span>Buscar</span>
+            <span class="button outline round small">Ordenar por <i class="fas fa-caret-down"></i></span>
         </div>
     </div>
-    <div class="list">
-        <div class='card titles'>
-            <div class='card-content'>Título</div>
-            <div class='card-content'>Categoría</div>
-            <div class='card-content'>Fecha de creación</div>
-            <div class='card-content'>Fecha de publicación</div>
-            <div class='card-content'>Autor</div>
-            <div class='clear'></div>
+
+    <div class="information column">
+        <div class='card grid black'>
+            <div>Autor</div>
+            <div>Título</div>
+            <div>Categoría</div>
+            <div>Status</div>
+            <div>Fecha</div>
         </div>
-<?php
-if (isset($news) && $news) {
-    foreach ($news as $item) {
-        echo "<div class='card'>
-                <div class='card-content'><a href='/admin_panel/edit/{$item->getId()}'>{$item->getTitle()}</a></div>
-                <div class='card-content'>{$categories[$item->getCategory()]}</div>
-                <div class='card-content'>{$item->getDateCreated()}</div>
-                <div class='card-content'>{$item->getDatePublished()}</div>
-                <div class='card-content'>{$item->getAutor()->getName()}</div>
-                <div class='clear'></div>
-              </div>";
-    }
-} else {
-    echo "<div class='card'><div class='card-content'>No hay nada que mostrar</div></div>";
-}
-?>
+
+        <div class='card grid'>
+            <div class='autor-content'>
+                <i class="far fa-user-circle"></i>    
+                <span>Sergio</span>
+            </div>
+            <div class='title-content'>Un titulo hermoso</div>
+            <div class='tag-content'><span>Economy</span></div>
+            <div class='status-content'><span>Publicado</span></div>
+            <div class='date-content'>03/12/2018</div>
+            <div class='links-content'>
+                <a href='/admin_panel/edit/12312312'><i class="fas fa-pen-square"></i></a>
+            </div>
+        </div>
+
+        <?php if (isset($news) && $news) {
+            foreach ($news as $item) { ?>
+                <div class='card grid'>
+                    <div class='autor-content'>
+                        <i class="far fa-user-circle"></i>
+                        <span><?php echo $item->getAutor()->getName() ?></span>
+                    </div>
+                    <div class='title-content'><?php echo $item->getTitle() ?></a></div>
+                    <div class='tag-content'><span><?php echo $categories[$item->getCategory()] ?></span></div>
+                    <div class='status-content'><span><?php echo $item->getDateCreated() ?></span></div>
+                    <div class='date-content'><?php echo $item->getDatePublished() ?></div>
+                    <div class='links-content'>
+                        <a href='/admin_panel/edit/<?php echo $item->getId() ?>'><i class="fas fa-pen-square"></i></a>
+                    </div>
+                </div>
+            <?php }
+        } ?>
+
+        <?php if (isset($notification)) {
+            $cssClas = $notification['type']; ?>
+            <div class='<?php $cssClas ?>'>
+                <?php echo $notification['msg'] ?>
+            </div>
+        <?php } ?>   
     </div>
-<br>
 
-<?php
-    if (isset($notification)) {
-        $cssClas = $notification['type'];
-        echo "<div class='$cssClas'>{$notification['msg']}</div>";
-    }
-    ?>
-
-<br>
-    </section>
-    <aside class="sidebar-rigth"></aside>
+</section>
+<?php /* incluimos el sidebar */ include __DIR__ . '/right_aside.phtml' ?>
 </main>
-
-<?php /* incluimos el footer */ include __DIR__ . '/../footer.phtml' ?>
+<?php /* incluimos el footer */ include __DIR__ . '/footer.phtml' ?>

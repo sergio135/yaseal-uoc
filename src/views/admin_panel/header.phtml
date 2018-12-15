@@ -1,17 +1,22 @@
-<!-----------------------------------
--- Plantilla HTML para la cabecera --
------------------------------------->
+<!---------------------------------------------------
+-- Plantilla HTML para la cabecera del admin panel --
+---------------------------------------------------->
 <header class="admin-header">
     <div class="area-logo">
-        Logo
+        <i class="fas fa-chart-area"></i>
     </div>
     <div class="area-title">
         <h3>YASEAL</h3>
     </div>
     <div class="area-profile">
-        <div><?php echo $user->getName() ?></div>
+        <div class="user column">
+            <i class="far fa-user-circle"></i>
+            <span><?php echo $user->getName() ?></span>
+        </div>
         <div class="logout">
-            <a href="/logout">Salir</a>
+            <a href="/logout">
+                <i class="fas fa-sign-out-alt"></i>
+            </a>
         </div>
     </div>
 </header>

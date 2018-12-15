@@ -28,6 +28,7 @@ const yaseal = {
 
 ///////// FrontEnd logic /////////////
 window.onload = () => {
+  ///////// Auth Panel /////////////
   const loginButton = document.querySelector("#login-button");
   const registerButton = document.querySelector("#register-button");
   const loginArea = document.querySelector("#login-area");
@@ -87,4 +88,6 @@ window.onload = () => {
         });
     });
   }
+
+  ///////// Admin Panel /////////////
 };
