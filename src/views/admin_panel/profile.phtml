@@ -20,9 +20,9 @@
     <div class="information column">
         <div class='card'>
             <form id="profile-form" action="#" method="post" class="gray">
-                <input type="text" name="name" placeholder="Nombre y Apellidos" <?php if (isset($name)) echo "value=$name"?>>
-                <input type="text" name="email" placeholder="Email" <?php if (isset($email)) echo "value=$email"?>>
-                <input type="password" name="password" placeholder="Contraseña">
+                <input type="text" name="name" placeholder="Nombre y Apellidos" value="<?php echo $user->getName() ?>" >
+                <input type="text" name="email" placeholder="Email" value="<?php echo $user->getEmail() ?>" >
+                <input type="password" name="password" placeholder="Contraseña" value="<?php echo $user->getPassword() ?>" >
             </form>
         </div>
     </div>
