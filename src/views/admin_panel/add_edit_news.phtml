@@ -52,9 +52,9 @@ if (!isset($action) && $user->getRole() == 'editor') {
                 <input type="text" name="keywords" placeholder="Ej: keyword, list, example" value="<?php if (isset($keywords)) echo $keywords?>">
                 <?php
                 if (isset($action) && $action == "edit") {
-                    echo "<button class='button blue' type='submit'>Editar</button>";
+                    echo "<button class='button blue margin-right' type='submit'>Editar</button>";
                 } else {
-                    echo "<button class='button blue' type='submit'>Añadir</button>";
+                    echo "<button class='button blue margin-right' type='submit'>Añadir</button>";
                 }
                 if ($user->getRole() != 'autor' && !$date_published) {
                     echo "<button class='button red' id='publish' type='button'>Publicar</button>";

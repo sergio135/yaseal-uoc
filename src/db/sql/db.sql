@@ -1,5 +1,5 @@
 -- Crear esquema de la base de datos
-CREATE SCHEMA IF NOT EXISTS p7_news_app;
+CREATE SCHEMA IF NOT EXISTS p7_news_app CHARACTER SET utf8mb4;
 
 -- Seleccionar base de datos para su uso
 USE p7_news_app;
@@ -83,4 +83,4 @@ INSERT INTO table_category (name, parent) VALUES
 ('Tiempo', NULL);
 
 INSERT INTO table_user(name, email, password, date_registered, role_id)
-VALUES ('admin','admin@yaseal.com','$2y$10$qEJUheFyhATltcpYzQv.1.7hbb4rmX8uirRUDYvel4V/CV3GbJx7S','2018-11-15','1')
+VALUES ('admin','admin@yaseal.com','$2y$10$qEJUheFyhATltcpYzQv.1.7hbb4rmX8uirRUDYvel4V/CV3GbJx7S','2018-11-15','1');

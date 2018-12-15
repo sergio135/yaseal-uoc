@@ -14,13 +14,11 @@ $app->post('/api/login', function (Request $req, Response $res, array $args) {
     $adminPanel = new AdminPanelController($this);
     $result = $adminPanel->login($dataForm);
     
-    
     if (array_key_exists("notification", $result)) {
         return $res->withJson(['error' => $result['notification']], 500);  
     }
     $_SESSION['user'] = $result;
-
-    return $res->withJson($result, 200);  
+    return $res->withJson($result, 200);
 });
 
 ?>

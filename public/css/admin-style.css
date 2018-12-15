@@ -164,6 +164,10 @@ select {
   padding: 1px 10px;
 }
 
+.button.margin-right {
+  margin-right: 10px;
+}
+
 /************ Colors *************/
 form.gray input,
 form.gray textarea,
