@@ -278,6 +278,11 @@ input.white {
   display: none;
 }
 
+.auth .area-form #errors-form {
+  color: red;
+  padding: 5px 10px;
+}
+
 /************ Header *************/
 header.admin-header {
   position: absolute;
