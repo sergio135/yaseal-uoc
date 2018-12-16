@@ -84,13 +84,15 @@ class AdminPanelController {
         return $news;
     }
 
-    public function updateUser($req, $res, $args) {
+    public function updateUser($dataForm) {
         $id = $_SESSION['user']->getId();
-        $name = $req->getParam('name');
-        $email = $req->getParam('email');
+        $name = $dataForm['name'];
+        $email = $dataForm['email'];
+        $password = $dataForm['password'];
+
         $pass = null;
-        if (!empty($req->getParam('password'))) {
-            $pass = password_hash($req->getParam('password'), PASSWORD_DEFAULT);
+        if (!empty($password)) {
+            $pass = password_hash($password, PASSWORD_DEFAULT);
         }
         $userDao = new UserDao($this->container['db']);
         $result = $userDao->updateUser($id, $name, $email, $pass);

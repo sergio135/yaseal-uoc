@@ -22,7 +22,8 @@ const yaseal = {
   },
   api: {
     login: `${window.location.origin}/api/login`,
-    register: `${window.location.origin}/api/register`
+    register: `${window.location.origin}/api/register`,
+    update: `${window.location.origin}/api/update`
   }
 };
 
@@ -78,6 +79,27 @@ window.onload = () => {
           email: email.value,
           password: password.value,
           role: role.value
+        })
+        .then(function(res) {
+          window.location.href = `${window.location.origin}/admin_panel/panel`;
+        })
+        .catch(function(err) {
+          console.error(err.response.data);
+          errorsBox.innerHTML = err.response.data.error.msg;
+        });
+    });
+  }
+
+  const profileForm = document.querySelector("#profile-form");
+  if (profileForm && errorsBox) {
+    profileForm.addEventListener("submit", event => {
+      event.preventDefault();
+      const { name, email, password } = event.target.children;
+      axios
+        .post(yaseal.api.update, {
+          name: name.value,
+          email: email.value,
+          password: password.value ? password.value : null
         })
         .then(function(res) {
           window.location.href = `${window.location.origin}/admin_panel/panel`;

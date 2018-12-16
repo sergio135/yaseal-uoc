@@ -11,7 +11,7 @@
         <div class="title">
             <h1>Perfil</h1>
             <div class="area-button">
-                <a class='button outline blue round' href='#'>Guardar</a>
+                <input type="submit" class='button outline blue round' form="profile-form" value ="Guardar">
             </div>
         </div>
         <div class="filters"></div>
@@ -19,20 +19,15 @@
 
     <div class="information column">
         <div class='card'>
-            <form id="profile-form" action="#" method="post" class="gray">
+            <form id="profile-form" class="gray" action="#">
                 <input type="text" name="name" placeholder="Nombre y Apellidos" value="<?php echo $user->getName() ?>" >
                 <input type="text" name="email" placeholder="Email" value="<?php echo $user->getEmail() ?>" >
-                <input type="password" name="password" placeholder="Contraseña" value="<?php echo $user->getPassword() ?>" >
+                <input type="password" name="password" placeholder="Contraseña" value="" >
             </form>
         </div>
     </div>
 
-    <?php if (isset($notification)) {
-        $cssClas = $notification['type']; ?>
-        <div class='<?php $cssClas ?>'>
-            <?php echo $notification['msg'] ?>
-        </div>
-    <?php } ?>
+    <div id="errors-form"></div>
 
 </section>
 <?php /* incluimos el sidebar */ include __DIR__ . '/right_aside.phtml' ?>
