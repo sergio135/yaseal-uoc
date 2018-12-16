@@ -28,9 +28,10 @@
       }
       echo  " <section class='cards'>";
       foreach($news as $new) {
-          echo "<article>
-                  <a href=''> <img class='article-img' src='/public/img/news/{$new->getImg()}' alt=''/></a>
-                  <a href=''> <h3 class='article-title'>{$new->getTitle()}</h3></a>
+        $newUrl = "./noticia/" . (string)$new->getId();
+          echo "<article href={$newUrl}>
+                  <a href={$newUrl}> <img class='article-img' src='/public/img/news/{$new->getImg()}' alt=''/></a>
+                  <a href={$newUrl}> <h3 class='article-title'>{$new->getTitle()}</h3></a>
                     <p>{$new->getContent()} </p>
                 </article> "; 
       }

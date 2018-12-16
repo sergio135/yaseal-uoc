@@ -2,12 +2,18 @@
 -- Plantilla HTML para la cabecera --
 ------------------------------------>
 <header>
+<?php 
+    $cssPath = './public/css/home.css';
+    echo "<link rel='stylesheet' href={$cssPath}>
+    <link rel='stylesheet' href='./public/css/reset.css'>";
+?>
+
 
 <nav class="navigation-bar"> 
     <p class="logo">Yaseal</p>
-    <a href="#">INTERNACIONAL</a>
-    <a href="#">LOCAL</a>
-    <a href="#">DEPORTES</a>
-    <a href="#">TIEMPO</a>
+    <a href="./internacional">INTERNACIONAL</a>
+    <a href="./local">LOCAL</a>
+    <a href="./deportes">DEPORTES</a>
+    <a href="./tiempo">TIEMPO</a>
 </nav>
 </header>
