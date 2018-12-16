@@ -5,20 +5,23 @@
 <?php /* incluimos la cabecera */ include __DIR__ . '/header.phtml' ?>
 <link rel="stylesheet" href="./public/css/home.css">
 
-<div class="portada">
-  <img class="img-portada" src="public\images\portada.jpg" alt="portada">
-  <div class="texto-portada">
-    <h1 id="titulo-portada">¿Qué pasaría si el Pasejo ganase los últimos juegos olímpicos?</h1>
-    <span id="autor-portada">Sergio García  <span>|</span></span>
-    <span id="fecha-portada">Hace 6 meses</span>
-  </div>
-</div>
-
 <div class=noticias>
 
   <?php 
 
     $newsArray = $_SESSION['news'];
+    $mainNew = $newsArray[0];
+    $mainNew = $mainNew[0];
+
+    $mainNewUrl = "./noticia/" . (string)$mainNew->getId();
+
+    echo "<div class='portada'>
+            <img class='img-portada' src='{$mainNew->getImg()}' alt='portada'>
+            <div class='texto-portada'>
+              <h1 id='titulo-portada'>{$mainNew->getTitle()}</h1>
+              <span id='fecha-portada'>{$mainNew->getDateCreated()}</span>
+            </div>
+          </div>";
 
     foreach($newsArray as $newsCategory => $news) {
       if($newsCategory !== '') {
@@ -30,7 +33,7 @@
       foreach($news as $new) {
         $newUrl = "./noticia/" . (string)$new->getId();
           echo "<article href={$newUrl}>
-                  <a href={$newUrl}> <img class='article-img' src='/public/img/news/{$new->getImg()}' alt=''/></a>
+                  <a href={$newUrl}> <img class='article-img' src='{$new->getImg()}' alt=''/></a>
                   <a href={$newUrl}> <h3 class='article-title'>{$new->getTitle()}</h3></a>
                     <p>{$new->getContent()} </p>
                 </article> "; 
