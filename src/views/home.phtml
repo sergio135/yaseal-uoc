@@ -3,21 +3,21 @@
 --------------------------------------------->
 <?php /* incluimos la plantilla goblal */ include __DIR__ . '/layout.phtml' ?>
 <?php /* incluimos la cabecera */ include __DIR__ . '/header.phtml' ?>
-<link rel="stylesheet" href="./public/css/home.css">
+<link rel="stylesheet" href="/public/css/home.css">
 
 <div class=noticias>
 
   <?php 
 
     $newsArray = $_SESSION['news'];
-    $mainNew = $newsArray[0];
+    $mainNew = $newsArray[''];
     $mainNew = $mainNew[0];
 
-    $mainNewUrl = "./noticia/" . (string)$mainNew->getId();
+    $mainNewUrl = "/noticia/" . (string)$mainNew->getId();
 
     echo "<div class='portada'>
-            <img class='img-portada' src='{$mainNew->getImg()}' alt='portada'>
-            <div class='texto-portada'>
+            <img class='img-portada' src='/public/img/news/{$mainNew->getImg()}' alt='portada'>
+            <div class='texto-portada' style='text-shadow: 1px 1px 1px black;;'>
               <h1 id='titulo-portada'>{$mainNew->getTitle()}</h1>
               <span id='fecha-portada'>{$mainNew->getDateCreated()}</span>
             </div>
@@ -33,9 +33,8 @@
       foreach($news as $new) {
         $newUrl = "./noticia/" . (string)$new->getId();
           echo "<article href={$newUrl}>
-                  <a href={$newUrl}> <img class='article-img' src='{$new->getImg()}' alt=''/></a>
+                  <a href={$newUrl}> <img class='article-img' src='/public/img/news/{$new->getImg()}' alt=''/></a>
                   <a href={$newUrl}> <h3 class='article-title'>{$new->getTitle()}</h3></a>
-                    <p>{$new->getContent()} </p>
                 </article> "; 
       }
       echo " </section>";

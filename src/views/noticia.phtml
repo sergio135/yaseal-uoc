@@ -4,20 +4,14 @@
 <?php /* incluimos la plantilla goblal */ include __DIR__ . '/layout.phtml' ?>
 <?php /* incluimos la cabecera */ include __DIR__ . '/header.phtml' ?>
 <!-- <link rel="stylesheet" href="/public/css/noticia.css"> -->
-<?php 
-    $cssPath = '/public/css/noticia.css';
-    echo "<link rel='stylesheet' href={$cssPath}>";
-?>
-
-
-<?php  $new = $_SESSION['new']  ?>
+<?php  $new = $_SESSION['new'];?>
 <div class="portada">
 <div style="text-align:center;" class="cabecera-noticia">
 
     <hr>
     <h1 class="titular-noticia"><?php echo  $new['title']  ?><h1>
     <hr>   
-    <img class="img-portada" src="public\images\portada.jpg" alt="portada">
+    <img class="img-portada" src="/public/img/news/<?php echo $new['img'] ?>" alt="portada">
     <hr>
     <div style="text-align:center;" class="pie-pagina">
         <p><?php echo  $new['subtitle']  ?></p>
@@ -27,12 +21,12 @@
 </div>
 <div class="texto-noticia">
 
-<?php echo  $new['content']  ?>
+    <?php echo "<p>" . $new['content'] . "</p>"; ?>
 
     <div class="firma">
-<!--     <span class="autor"><?php echo  $new['autor'].getName()  ?> </span> falta actualizar la tabla para que devuelva el autor
- -->    <span> | </span>
-    <span class="fecha"><?php echo  $new['date_created']  ?> </span>
+     <span class="autor"><?php echo $new['autor']->getName() ?> </span>
+     <span> | </span>
+    <span class="fecha"><?php echo $new['date_created']  ?> </span>
     </div>
 </div>
 

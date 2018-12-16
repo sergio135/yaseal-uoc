@@ -147,8 +147,8 @@ class NewsDao {
         $list = array();
         try {
             $sql = "SELECT n.*, GROUP_CONCAT(k.name SEPARATOR ', ') 'keywords'
-                FROM table_news n,table_keyword k
-                WHERE n.id = k.news_id
+                FROM table_news n
+                LEFT JOIN table_keyword k ON n.id = k.news_id
                 GROUP BY n.id
                 ORDER BY n.date_created DESC";
 
@@ -171,9 +171,9 @@ class NewsDao {
         $list = array();
         try {
             $sql = "SELECT n.*, GROUP_CONCAT(k.name SEPARATOR ', ') 'keywords'
-                FROM table_news n,table_keyword k
-                WHERE n.id = k.news_id
-                AND n.date_published IS NOT NULL
+                FROM table_news n
+                LEFT JOIN table_keyword k ON n.id = k.news_id
+                WHERE n.date_published IS NOT NULL
                 GROUP BY n.id
                 ORDER BY n.date_created DESC";
 
@@ -195,10 +195,11 @@ class NewsDao {
         $db = $this->getConn();
         $list = array();
         try {
-            $sql = "SELECT n.*, GROUP_CONCAT(k.name SEPARATOR ', ') 'keywords' FROM table_news n, table_keyword k, table_user u
-                    WHERE n.id = k.news_id
-                    AND n.autor = u.id
-                    AND u.id = :id
+            $sql = "SELECT n.*, GROUP_CONCAT(k.name SEPARATOR ', ') 'keywords'
+                    FROM table_news n
+                    LEFT JOIN table_keyword k ON n.id = k.news_id
+                    INNER JOIN table_user u ON n.autor = u.id
+                    WHERE u.id = 2
                     GROUP BY n.id
                     ORDER BY n.date_created DESC";
             $stmt = $db->prepare($sql);
@@ -240,9 +241,9 @@ class NewsDao {
         $list = array();
         try {
             $sql = "SELECT n.*, GROUP_CONCAT(k.name SEPARATOR ', ') 'keywords'
-                FROM table_news n,table_keyword k
-                WHERE n.id = k.news_id
-                AND n.category_id = $categoryId
+                FROM table_news n
+                LEFT JOIN table_keyword k ON n.id = k.news_id
+                WHERE n.category_id = $categoryId
                 AND n.date_published IS NOT NULL
                 GROUP BY n.id
                 ORDER BY n.date_created DESC";

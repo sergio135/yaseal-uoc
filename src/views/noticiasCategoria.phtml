@@ -18,11 +18,10 @@
   <div class=noticias>
     <section class='cards'>";
     foreach($news as $new) {
-      $newUrl = "./noticia/" . (string)$new->getId();
-        echo "<article href={$newUrl}>
-                <a href={$newUrl}> <img class='article-img' src={$new->getImg()} alt=''/></a>
-                <a href= href={$newUrl}> <h3 class='article-title'>{$new->getTitle()}</h3></a>
-                  <p>{$new->getContent()} </p>
+      $newUrl = "/noticia/" . (string)$new->getId();
+        echo "<article>
+                <a href='{$newUrl}'> <img class='article-img' src='/public/img/news/{$new->getImg()}' alt=''/></a>
+                <a href=''{$newUrl}' > <h3 class='article-title'>{$new->getTitle()}</h3></a>
               </article> "; 
     }
     echo " </section>";
